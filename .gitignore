@@ -1,4 +1,7 @@
-pkg/
+*.gem
 *.bundle
 Gemfile.lock
+.bundle/
+.yardoc/
+doc/
 tmp/
