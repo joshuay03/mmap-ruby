@@ -1,24 +1,22 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mmap'
+# frozen_string_literal: true
+
+require_relative "lib/mmap-ruby/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "mmap"
-  spec.version       = Mmap::VERSION
-  spec.authors       = ["Guy Decoux", "Aaron Patterson"]
-  spec.email         = ["ts@moulon.inra.fr", "tenderlove@github.com"]
-  spec.description   = %q{The Mmap class implement memory-mapped file objects}
-  spec.summary       = %q{The Mmap class implement memory-mapped file objects}
-  spec.homepage      = "https://github.com/tenderlove/mmap"
-  spec.license       = "https://www.ruby-lang.org/en/about/license.txt"
+  spec.name = "mmap-ruby"
+  spec.version = MmapRuby::VERSION
+  spec.authors = ["Guy Decoux", "Aaron Patterson", "Joshua Young"]
+  spec.email = ["ts@moulon.inra.fr", "tenderlove@github.com", "djry1999@gmail.com"]
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.summary = "The Mmap class implement memory-mapped file objects"
+  spec.homepage = "https://github.com/joshuay03/mmap-ruby"
+  spec.license = "https://www.ruby-lang.org/en/about/license.txt"
+  spec.required_ruby_version = ">= 3.3.0"
+
+  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
+
+  spec.files = Dir["lib/**/*", "ext/**/*", "**/*.{gemspec,md,txt}"]
   spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rake-compiler"
-  spec.add_development_dependency "hoe"
+  spec.extensions = ["ext/mmap_ruby/extconf.rb"]
 end
