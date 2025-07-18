@@ -1,0 +1,9828 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: MmapRuby::Mmap
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "MmapRuby::Mmap";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (M)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../MmapRuby.html" title="MmapRuby (module)">MmapRuby</a></span></span>
+     &raquo; 
+    <span class="title">Mmap</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: MmapRuby::Mmap
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">MmapRuby::Mmap</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Comparable, Enumerable</dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/mmap-ruby/mmap.rb<span class="defines">,<br />
+  ext/mmap_ruby/mmap_ruby.c</span>
+</dd>
+  </dl>
+  
+</div>
+
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="MS_SYNC-constant" class="">MS_SYNC =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MS_SYNC-constant" title="MmapRuby::Mmap::MS_SYNC (constant)">MS_SYNC</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MS_ASYNC-constant" class="">MS_ASYNC =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MS_ASYNC-constant" title="MmapRuby::Mmap::MS_ASYNC (constant)">MS_ASYNC</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MS_INVALIDATE-constant" class="">MS_INVALIDATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MS_INVALIDATE-constant" title="MmapRuby::Mmap::MS_INVALIDATE (constant)">MS_INVALIDATE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="PROT_READ-constant" class="">PROT_READ =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#PROT_READ-constant" title="MmapRuby::Mmap::PROT_READ (constant)">PROT_READ</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="PROT_WRITE-constant" class="">PROT_WRITE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#PROT_WRITE-constant" title="MmapRuby::Mmap::PROT_WRITE (constant)">PROT_WRITE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="PROT_EXEC-constant" class="">PROT_EXEC =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#PROT_EXEC-constant" title="MmapRuby::Mmap::PROT_EXEC (constant)">PROT_EXEC</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="PROT_NONE-constant" class="">PROT_NONE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#PROT_NONE-constant" title="MmapRuby::Mmap::PROT_NONE (constant)">PROT_NONE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_ANON-constant" class="">MAP_ANON =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_ANON-constant" title="MmapRuby::Mmap::MAP_ANON (constant)">MAP_ANON</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_ANONYMOUS-constant" class="">MAP_ANONYMOUS =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_ANONYMOUS-constant" title="MmapRuby::Mmap::MAP_ANONYMOUS (constant)">MAP_ANONYMOUS</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_SHARED-constant" class="">MAP_SHARED =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_SHARED-constant" title="MmapRuby::Mmap::MAP_SHARED (constant)">MAP_SHARED</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_PRIVATE-constant" class="">MAP_PRIVATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_PRIVATE-constant" title="MmapRuby::Mmap::MAP_PRIVATE (constant)">MAP_PRIVATE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MADV_NORMAL-constant" class="">MADV_NORMAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MADV_NORMAL-constant" title="MmapRuby::Mmap::MADV_NORMAL (constant)">MADV_NORMAL</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MADV_RANDOM-constant" class="">MADV_RANDOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MADV_RANDOM-constant" title="MmapRuby::Mmap::MADV_RANDOM (constant)">MADV_RANDOM</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MADV_SEQUENTIAL-constant" class="">MADV_SEQUENTIAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MADV_SEQUENTIAL-constant" title="MmapRuby::Mmap::MADV_SEQUENTIAL (constant)">MADV_SEQUENTIAL</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MADV_WILLNEED-constant" class="">MADV_WILLNEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MADV_WILLNEED-constant" title="MmapRuby::Mmap::MADV_WILLNEED (constant)">MADV_WILLNEED</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MADV_DONTNEED-constant" class="">MADV_DONTNEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MADV_DONTNEED-constant" title="MmapRuby::Mmap::MADV_DONTNEED (constant)">MADV_DONTNEED</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_DENYWRITE-constant" class="">MAP_DENYWRITE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_DENYWRITE-constant" title="MmapRuby::Mmap::MAP_DENYWRITE (constant)">MAP_DENYWRITE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_EXECUTABLE-constant" class="">MAP_EXECUTABLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_EXECUTABLE-constant" title="MmapRuby::Mmap::MAP_EXECUTABLE (constant)">MAP_EXECUTABLE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_NORESERVE-constant" class="">MAP_NORESERVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_NORESERVE-constant" title="MmapRuby::Mmap::MAP_NORESERVE (constant)">MAP_NORESERVE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_LOCKED-constant" class="">MAP_LOCKED =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_LOCKED-constant" title="MmapRuby::Mmap::MAP_LOCKED (constant)">MAP_LOCKED</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_GROWSDOWN-constant" class="">MAP_GROWSDOWN =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_GROWSDOWN-constant" title="MmapRuby::Mmap::MAP_GROWSDOWN (constant)">MAP_GROWSDOWN</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MAP_NOSYNC-constant" class="">MAP_NOSYNC =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MAP_NOSYNC-constant" title="MmapRuby::Mmap::MAP_NOSYNC (constant)">MAP_NOSYNC</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MCL_CURRENT-constant" class="">MCL_CURRENT =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MCL_CURRENT-constant" title="MmapRuby::Mmap::MCL_CURRENT (constant)">MCL_CURRENT</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="MCL_FUTURE-constant" class="">MCL_FUTURE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>INT2FIX</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#MCL_FUTURE-constant" title="MmapRuby::Mmap::MCL_FUTURE (constant)">MCL_FUTURE</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lockall-class_method" title="lockall (class method)">.<strong>lockall</strong>(flag)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Disables paging of all pages mapped into the address space of the calling process.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mlockall-class_method" title="mlockall (class method)">.<strong>mlockall</strong>(flag)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Disables paging of all pages mapped into the address space of the calling process.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#munlockall-class_method" title="munlockall (class method)">.<strong>munlockall</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Re-enables paging for all pages mapped into the address space of the calling process.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unlockall-class_method" title="unlockall (class method)">.<strong>unlockall</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Re-enables paging for all pages mapped into the address space of the calling process.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#<<-instance_method" title="#&lt;&lt; (instance method)">#<strong>&lt;&lt;</strong>(other)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Appends the contents of <code>other</code> to the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#<=>-instance_method" title="#&lt;=&gt; (instance method)">#<strong>&lt;=&gt;</strong>(other)  &#x21d2; -1, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compares the mapped memory with <code>other</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#==-instance_method" title="#== (instance method)">#<strong>==</strong>(other)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns <code>true</code> if the content of the mapped memory is equal to <code>other</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#===-instance_method" title="#=== (instance method)">#<strong>===</strong>(other)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns <code>true</code> if the content of the mapped memory is equal to <code>other</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#=~-instance_method" title="#=~ (instance method)">#<strong>=~</strong>(other)  &#x21d2; Integer<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the index of the first match of <code>other</code> in the mapped memory, or <code>nil</code> if no match is found.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#[]-instance_method" title="#[] (instance method)">#<strong>[]</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Element reference with the following syntax:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#[]=-instance_method" title="#[]= (instance method)">#<strong>[]=</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Element assignment with the following syntax:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#advise-instance_method" title="#advise (instance method)">#<strong>advise</strong>(advice)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Gives advice to the kernel about how the mapped memory will be accessed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#capitalize!-instance_method" title="#capitalize! (instance method)">#<strong>capitalize!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Changes the first character to uppercase letter in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#casecmp-instance_method" title="#casecmp (instance method)">#<strong>casecmp</strong>(other)  &#x21d2; -1, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Performs a case-insensitive comparison of the mapped memory with <code>other</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chomp!-instance_method" title="#chomp! (instance method)">#<strong>chomp!</strong>(rs = $/)  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Chops off line ending character specified by <code>rs</code> in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chop!-instance_method" title="#chop! (instance method)">#<strong>chop!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Chops off the last character in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clone-instance_method" title="#clone (instance method)">#<strong>clone</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#concat-instance_method" title="#concat (instance method)">#<strong>concat</strong>(other)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Appends the contents of <code>other</code> to the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#count-instance_method" title="#count (instance method)">#<strong>count</strong>(o1, *args)  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Each parameter defines a set of characters to count in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#crypt-instance_method" title="#crypt (instance method)">#<strong>crypt</strong>(salt)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Encrypts the mapped memory using the standard Unix crypt function with the given <code>salt</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete!-instance_method" title="#delete! (instance method)">#<strong>delete!</strong>(str)  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes every character included in <code>str</code> from the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#downcase!-instance_method" title="#downcase! (instance method)">#<strong>downcase!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Changes all uppercase characters to lowercase characters in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dup-instance_method" title="#dup (instance method)">#<strong>dup</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_byte-instance_method" title="#each_byte (instance method)">#<strong>each_byte</strong>  &#x21d2; Object </a>
+    
+
+    
+      (also: #each)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>See String#each_byte.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_line-instance_method" title="#each_line (instance method)">#<strong>each_line</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>See String#each_line.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#empty%3F-instance_method" title="#empty? (instance method)">#<strong>empty?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns <code>true</code> if the file is empty, <code>false</code> otherwise.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eql%3F-instance_method" title="#eql? (instance method)">#<strong>eql?</strong>(other)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns <code>true</code> if the content and type of the mapped memory is equal to <code>other</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#extend-instance_method" title="#extend (instance method)">#<strong>extend</strong>(count)  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Adds <code>count</code> bytes to the file (i.e. pre-extends the file).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#flush-instance_method" title="#flush (instance method)">#<strong>flush</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Flushes the mapped memory to the underlying file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gsub!-instance_method" title="#gsub! (instance method)">#<strong>gsub!</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Performs global substitution on the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hash-instance_method" title="#hash (instance method)">#<strong>hash</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the hash value for the mapped memory content.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#include%3F-instance_method" title="#include? (instance method)">#<strong>include?</strong>(other)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns <code>true</code> if <code>other</code> is found in the mapped memory, <code>false</code> otherwise.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index-instance_method" title="#index (instance method)">#<strong>index</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the index of <code>substr</code> or <code>pattern</code>, or <code>nil</code> if not found.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#new (instance method)">#<strong>new</strong>(file, mode = &quot;r&quot;, protection = MmapRuby::MAP_SHARED, options = {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a new MmapRuby object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#insert-instance_method" title="#insert (instance method)">#<strong>insert</strong>(index, str)  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Inserts <code>str</code> at <code>index</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ipc_key-instance_method" title="#ipc_key (instance method)">#<strong>ipc_key</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Gets the IPC key.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#length-instance_method" title="#length (instance method)">#<strong>length</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the size of the file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lock-instance_method" title="#lock (instance method)">#<strong>lock</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Disables paging for the mapped memory, locking it in physical memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#madvise-instance_method" title="#madvise (instance method)">#<strong>madvise</strong>(advice)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Gives advice to the kernel about how the mapped memory will be accessed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match-instance_method" title="#match (instance method)">#<strong>match</strong>(pattern)  &#x21d2; MatchData<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Converts <code>pattern</code> to a Regexp (if it isn’t already one) and returns a MatchData object describing the match, or <code>nil</code> if there was no match.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mlock-instance_method" title="#mlock (instance method)">#<strong>mlock</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Disables paging for the mapped memory, locking it in physical memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mprotect-instance_method" title="#mprotect (instance method)">#<strong>mprotect</strong>(mode)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Changes the memory protection mode.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#msync-instance_method" title="#msync (instance method)">#<strong>msync</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Flushes the mapped memory to the underlying file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#munlock-instance_method" title="#munlock (instance method)">#<strong>munlock</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Re-enables paging for the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#munmap-instance_method" title="#munmap (instance method)">#<strong>munmap</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Terminates the association between the mapped memory and the file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#protect-instance_method" title="#protect (instance method)">#<strong>protect</strong>(mode)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Changes the memory protection mode.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reverse!-instance_method" title="#reverse! (instance method)">#<strong>reverse!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Reverses the characters in the mapped memory in place.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rindex-instance_method" title="#rindex (instance method)">#<strong>rindex</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the index of the last occurrence of <code>substr</code> or <code>pattern</code>, or <code>nil</code> if not found.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#scan-instance_method" title="#scan (instance method)">#<strong>scan</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>See String#scan.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#semlock-instance_method" title="#semlock (instance method)">#<strong>semlock</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a lock.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#size-instance_method" title="#size (instance method)">#<strong>size</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the size of the file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#slice-instance_method" title="#slice (instance method)">#<strong>slice</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Element reference with the following syntax:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#slice!-instance_method" title="#slice! (instance method)">#<strong>slice!</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes the specified portion of the mapped memory and returns it.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#split-instance_method" title="#split (instance method)">#<strong>split</strong>(sep = $/, limit = 0)  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Splits the mapped memory into an array of strings and returns this array.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#squeeze!-instance_method" title="#squeeze! (instance method)">#<strong>squeeze!</strong>(str)  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Squeezes sequences of the same characters that are included in <code>str</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#strip!-instance_method" title="#strip! (instance method)">#<strong>strip!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Removes leading and trailing whitespace from the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sub!-instance_method" title="#sub! (instance method)">#<strong>sub!</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Performs substitution on the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sum-instance_method" title="#sum (instance method)">#<strong>sum</strong>(bits = 16)  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a checksum for the mapped memory content.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#swapcase!-instance_method" title="#swapcase! (instance method)">#<strong>swapcase!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Replaces lowercase to uppercase and vice-versa in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sync-instance_method" title="#sync (instance method)">#<strong>sync</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Flushes the mapped memory to the underlying file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_str-instance_method" title="#to_str (instance method)">#<strong>to_str</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Convert object to a string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unlock-instance_method" title="#unlock (instance method)">#<strong>unlock</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Re-enables paging for the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unmap-instance_method" title="#unmap (instance method)">#<strong>unmap</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Terminates the association between the mapped memory and the file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#upcase!-instance_method" title="#upcase! (instance method)">#<strong>upcase!</strong>  &#x21d2; self </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Replaces all lowercase characters to uppercase characters in the mapped memory.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>new</strong>(file, mode = &quot;r&quot;, protection = MmapRuby::MAP_SHARED, options = {})  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new MmapRuby object.</p>
+<ul><li>
+<p><code>file</code></p>
+
+<p>Pathname of the file. If <code>nil</code> is given, an anonymous map is created (<code>MmapRuby::MAP_ANON</code>).</p>
+</li><li>
+<p><code>mode</code></p>
+
+<p>Mode to open the file. Can be “r”, “w”, “rw”, or “a”.</p>
+</li><li>
+<p><code>protection</code></p>
+
+<p>Specifies the nature of the mapping:</p>
+<ul><li>
+<p><code>MmapRuby::MAP_SHARED</code></p>
+
+<p>Creates a mapping that’s shared with all other processes mapping the same areas of the file. This is the default value.</p>
+</li><li>
+<p><code>MmapRuby::MAP_PRIVATE</code></p>
+
+<p>Creates a private copy-on-write mapping, so changes to the contents of the mmap object will be private to this process.</p>
+</li></ul>
+</li><li>
+<p><code>options</code></p>
+
+<p>Hash. If one of the options <code>length</code> or <code>offset</code> is specified, it will not be possible to modify the size of the mapped file.</p>
+<dl class="rdoc-list note-list"><dt>length</dt>
+<dd>
+<p>Maps <code>length</code> bytes from the file.</p>
+</dd><dt>offset</dt>
+<dd>
+<p>The mapping begins at <code>offset</code>.</p>
+</dd><dt>advice</dt>
+<dd>
+<p>The type of access (see #madvise).</p>
+</dd></dl>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 250</span>
+
+static VALUE
+rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
+{
+  mmap_t *mmap;
+  struct stat st;
+
+  VALUE fname, vmode, scope, options;
+  VALUE fdv = Qnil;
+
+  const char *path = 0, *mode = 0;
+  int fd = -1, perm = 0666;
+
+  caddr_t addr;
+  size_t size = 0;
+  off_t offset = 0;
+  int smode = 0, pmode = 0, vscope = 0;
+
+  int anonymous = 0, init = 0;
+
+  options = Qnil;
+  argc = rb_scan_args(argc, argv, &quot;12:&quot;, &amp;fname, &amp;vmode, &amp;scope, &amp;options);
+
+  if (NIL_P(fname)) {
+    vscope = MAP_ANON | MAP_SHARED;
+    anonymous = 1;
+  }
+  else
+  {
+    if (rb_respond_to(fname, rb_intern(&quot;fileno&quot;))) {
+      fdv = rb_funcall2(fname, rb_intern(&quot;fileno&quot;), 0, 0);
+    }
+
+    if (NIL_P(fdv)) {
+      fname = rb_str_to_str(fname);
+      StringValue(fname);
+      path = StringValuePtr(fname);
+    }
+    else {
+      fd = NUM2INT(fdv);
+      if (fd &lt; 0) {
+        rb_raise(rb_eArgError, &quot;invalid file descriptor %d&quot;, fd);
+      }
+    }
+
+    if (!NIL_P(scope)) {
+      vscope = NUM2INT(scope);
+      if (vscope &amp; MAP_ANON) {
+        rb_raise(rb_eArgError, &quot;filename specified for an anonymous map&quot;);
+      }
+    }
+  }
+
+  vscope |= NIL_P(scope) ? MAP_SHARED : NUM2INT(scope);
+
+  if (!anonymous) {
+    if (NIL_P(vmode)) {
+      mode = &quot;r&quot;;
+    }
+    else if (rb_respond_to(vmode, rb_intern(&quot;to_ary&quot;))) {
+      VALUE tmp;
+
+      vmode = rb_convert_type(vmode, T_ARRAY, &quot;Array&quot;, &quot;to_ary&quot;);
+      if (RARRAY_LEN(vmode) != 2) {
+        rb_raise(rb_eArgError, &quot;invalid length %ld (expected 2)&quot;,
+                 RARRAY_LEN(vmode));
+      }
+      tmp = rb_ary_entry(vmode, 0);
+      mode = StringValuePtr(tmp);
+      perm = NUM2INT(rb_ary_entry(vmode, 1));
+    }
+    else {
+      mode = StringValuePtr(vmode);
+    }
+
+    if (strcmp(mode, &quot;r&quot;) == 0) {
+      smode = O_RDONLY;
+      pmode = PROT_READ;
+    }
+    else if (strcmp(mode, &quot;w&quot;) == 0) {
+      smode = O_RDWR | O_TRUNC;
+      pmode = PROT_READ | PROT_WRITE;
+    }
+    else if (strcmp(mode, &quot;rw&quot;) == 0 || strcmp(mode, &quot;wr&quot;) == 0) {
+      smode = O_RDWR;
+      pmode = PROT_READ | PROT_WRITE;
+    }
+    else if (strcmp(mode, &quot;a&quot;) == 0) {
+      smode = O_RDWR | O_CREAT;
+      pmode = PROT_READ | PROT_WRITE;
+    }
+    else {
+      rb_raise(rb_eArgError, &quot;invalid mode %s&quot;, mode);
+    }
+
+    if (NIL_P(fdv)) {
+      if ((fd = open(path, smode, perm)) == -1) {
+        rb_raise(rb_eArgError, &quot;can&#39;t open %s&quot;, path);
+      }
+    }
+    if (fstat(fd, &amp;st) == -1) {
+      rb_raise(rb_eArgError, &quot;can&#39;t stat %s&quot;, path);
+    }
+    size = st.st_size;
+  }
+  else {
+    fd = -1;
+    if (!NIL_P(vmode) &amp;&amp; TYPE(vmode) != T_STRING) {
+      size = NUM2INT(vmode);
+    }
+  }
+
+  TypedData_Get_Struct(self, mmap_t, &amp;mmap_type, mmap);
+  rb_check_frozen(self);
+  mmap-&gt;shmid = 0;
+  mmap-&gt;semid = 0;
+
+  if (options != Qnil) {
+    rb_funcall(self, rb_intern(&quot;process_options&quot;), 1, options);
+    if (path &amp;&amp; (mmap-&gt;len + mmap-&gt;offset) &gt; (size_t)st.st_size) {
+      rb_raise(rb_eArgError, &quot;invalid value for length (%ld) or offset (%ld)&quot;,
+               (long)mmap-&gt;len, (long)mmap-&gt;offset);
+    }
+    if (mmap-&gt;len) size = mmap-&gt;len;
+    offset = mmap-&gt;offset;
+
+    if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+      key_t key;
+      int shmid, semid, mode;
+      union semun sem_val;
+      struct shmid_ds buf;
+
+      if (!(vscope &amp; MAP_SHARED)) {
+        rb_warning(&quot;Probably it will not do what you expect ...&quot;);
+      }
+      mmap-&gt;key = -1;
+      mmap-&gt;semid = 0;
+      if (TYPE(mmap-&gt;shmid) == T_HASH) {
+        rb_block_call(mmap-&gt;shmid, rb_intern(&quot;each&quot;), 0, NULL, mmap_ipc_initialize, self);
+      }
+      mmap-&gt;shmid = 0;
+
+      if (mmap-&gt;semid) {
+        mode = mmap-&gt;semid;
+        mmap-&gt;semid = 0;
+      }
+      else {
+        mode = 0644;
+      }
+
+      if ((int)mmap-&gt;key &lt;= 0) {
+        mode |= IPC_CREAT;
+        strcpy(template, &quot;/tmp/ruby_mmap.XXXXXX&quot;);
+        if (mkstemp(template) == -1) {
+          rb_sys_fail(&quot;mkstemp()&quot;);
+        }
+        if ((key = ftok(template, &#39;R&#39;)) == -1) {
+          rb_sys_fail(&quot;ftok()&quot;);
+        }
+      }
+      else {
+        key = (key_t)mmap-&gt;key;
+      }
+
+      if ((shmid = shmget(key, sizeof(mmap_t), mode)) == -1) {
+        rb_sys_fail(&quot;shmget()&quot;);
+      }
+      mmap = shmat(shmid, (void *)0, 0);
+      if (mmap == (mmap_t *)-1) {
+        rb_sys_fail(&quot;shmat()&quot;);
+      }
+      if (mmap-&gt;flag &amp; MMAP_RUBY_TMP) {
+        if (shmctl(shmid, IPC_RMID, &amp;buf) == -1) {
+          rb_sys_fail(&quot;shmctl()&quot;);
+        }
+      }
+
+      if ((semid = semget(key, 1, mode)) == -1) {
+        rb_sys_fail(&quot;semget()&quot;);
+      }
+      if (mode &amp; IPC_CREAT) {
+        sem_val.val = 1;
+        if (semctl(semid, 0, SETVAL, sem_val) == -1) {
+          rb_sys_fail(&quot;semctl()&quot;);
+        }
+      }
+
+      mmap-&gt;key = key;
+      mmap-&gt;semid = semid;
+      mmap-&gt;shmid = shmid;
+      if (mmap-&gt;flag &amp; MMAP_RUBY_TMP) {
+        mmap-&gt;template = ALLOC_N(char, strlen(template) + 1);
+        strcpy(mmap-&gt;template, template);
+      }
+    }
+  }
+
+  if (anonymous) {
+    if (size &lt;= 0) {
+      rb_raise(rb_eArgError, &quot;length not specified for an anonymous map&quot;);
+    }
+    if (offset) {
+      rb_warning(&quot;Ignoring offset for an anonymous map&quot;);
+      offset = 0;
+    }
+    smode = O_RDWR;
+    pmode = PROT_READ | PROT_WRITE;
+    mmap-&gt;flag |= MMAP_RUBY_FIXED | MMAP_RUBY_ANON;
+  }
+  else {
+    if (size == 0 &amp;&amp; (smode &amp; O_RDWR)) {
+      if (lseek(fd, mmap-&gt;incr - 1, SEEK_END) == -1) {
+        rb_raise(rb_eIOError, &quot;can&#39;t lseek %lu&quot;, mmap-&gt;incr - 1);
+      }
+      if (write(fd, &quot;\000&quot;, 1) != 1) {
+        rb_raise(rb_eIOError, &quot;can&#39;t extend %s&quot;, path);
+      }
+      init = 1;
+      size = mmap-&gt;incr;
+    }
+    if (!NIL_P(fdv)) {
+      mmap-&gt;flag |= MMAP_RUBY_FIXED;
+    }
+  }
+
+  addr = mmap_func(0, size, pmode, vscope, fd, offset);
+  if (NIL_P(fdv) &amp;&amp; !anonymous) {
+    close(fd);
+  }
+  if (addr == MAP_FAILED || !addr) {
+    rb_raise(rb_eArgError, &quot;mmap failed (%d)&quot;, errno);
+  }
+
+#ifdef MADV_NORMAL
+  if (mmap-&gt;advice &amp;&amp; madvise(addr, size, mmap-&gt;advice) == -1) {
+    rb_raise(rb_eArgError, &quot;madvise(%d)&quot;, errno);
+  }
+#endif
+
+  if (anonymous &amp;&amp; TYPE(options) == T_HASH) {
+    VALUE val;
+    char *ptr;
+
+    val = rb_hash_aref(options, rb_str_new2(&quot;initialize&quot;));
+    if (!NIL_P(val)) {
+      ptr = StringValuePtr(val);
+      memset(addr, ptr[0], size);
+    }
+  }
+
+  mmap-&gt;addr = addr;
+  mmap-&gt;len = size;
+  if (!init) mmap-&gt;real = size;
+  mmap-&gt;pmode = pmode;
+  mmap-&gt;vscope = vscope;
+  mmap-&gt;smode = smode &amp; ~O_TRUNC;
+  mmap-&gt;path = (path) ? strdup(path) : (char *)(intptr_t)-1;
+
+  if (smode == O_RDONLY) {
+    self = rb_obj_freeze(self);
+  }
+  else {
+    if (smode == O_WRONLY) {
+      mmap-&gt;flag |= MMAP_RUBY_FIXED;
+    }
+  }
+
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="lockall-class_method">
+  
+    
+      <span class="overload">.<strong>lockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">.<strong>mlockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Disables paging of all pages mapped into the address space of the calling process. The <code>flag</code> parameter can be MCL_CURRENT (lock all currently mapped pages) or MCL_FUTURE (lock all pages that become mapped in the future).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>lockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>mlockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138
+139
+140
+141</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 134</span>
+
+static VALUE
+rb_cMmap_mlockall(VALUE self, VALUE flag)
+{
+  if (mlockall(NUM2INT(flag)) == -1) {
+    rb_raise(rb_eArgError, &quot;mlockall(%d)&quot;, errno);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mlockall-class_method">
+  
+    
+      <span class="overload">.<strong>lockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">.<strong>mlockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Disables paging of all pages mapped into the address space of the calling process. The <code>flag</code> parameter can be MCL_CURRENT (lock all currently mapped pages) or MCL_FUTURE (lock all pages that become mapped in the future).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>lockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>mlockall</strong>(flag)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138
+139
+140
+141</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 134</span>
+
+static VALUE
+rb_cMmap_mlockall(VALUE self, VALUE flag)
+{
+  if (mlockall(NUM2INT(flag)) == -1) {
+    rb_raise(rb_eArgError, &quot;mlockall(%d)&quot;, errno);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="munlockall-class_method">
+  
+    
+      <span class="overload">.<strong>unlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">.<strong>munlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Re-enables paging for all pages mapped into the address space of the calling process.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>unlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>munlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+151
+152
+153
+154
+155
+156
+157
+158
+159</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 151</span>
+
+static VALUE
+rb_cMmap_munlockall(VALUE self)
+{
+  (void)self;
+  if (munlockall() == -1) {
+    rb_raise(rb_eArgError, &quot;munlockall(%d)&quot;, errno);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unlockall-class_method">
+  
+    
+      <span class="overload">.<strong>unlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">.<strong>munlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Re-enables paging for all pages mapped into the address space of the calling process.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>unlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">.<strong>munlockall</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+151
+152
+153
+154
+155
+156
+157
+158
+159</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 151</span>
+
+static VALUE
+rb_cMmap_munlockall(VALUE self)
+{
+  (void)self;
+  if (munlockall() == -1) {
+    rb_raise(rb_eArgError, &quot;munlockall(%d)&quot;, errno);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="<<-instance_method">
+  
+    
+      <span class="overload">#<strong>concat</strong>(other)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>&lt;&lt;</strong>(other)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Appends the contents of <code>other</code> to the mapped memory. If <code>other</code> is an integer between 0 and 255, it is treated as a byte value. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>concat</strong>(other)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>&lt;&lt;</strong>(other)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1293
+1294
+1295
+1296
+1297
+1298
+1299
+1300
+1301
+1302
+1303
+1304
+1305</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1293</span>
+
+static VALUE
+rb_cMmap_concat(VALUE self, VALUE other)
+{
+  if (FIXNUM_P(other)) {
+    int i = FIX2INT(other);
+    if (0 &lt;= i &amp;&amp; i &lt;= 0xff) {
+      char c = i;
+      return mmap_cat(self, &amp;c, 1);
+    }
+  }
+  self = mmap_append(self, other);
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="<=>-instance_method">
+  
+    #<strong>&lt;=&gt;</strong>(other)  &#x21d2; <tt>-1</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compares the mapped memory with <code>other</code>. Returns -1 if the mapped memory is less than <code>other</code>, 0 if they are equal, 1 if the mapped memory is greater than <code>other</code>, or <code>nil</code> if the values are incomparable.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>-1</tt>, <tt>0</tt>, <tt>1</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 641</span>
+
+static VALUE
+rb_cMmap_cmp(VALUE self, VALUE other)
+{
+  VALUE self_str, other_str;
+  VALUE result;
+
+  self_str = mmap_str(self, MMAP_RUBY_ORIGIN);
+  other_str = rb_str_to_str(other);
+  result = rb_funcall2(self_str, rb_intern(&quot;&lt;=&gt;&quot;), 1, &amp;other_str);
+  RB_GC_GUARD(self_str);
+  RB_GC_GUARD(other_str);
+  return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="==-instance_method">
+  
+    
+      <span class="overload">#<strong>==</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+    
+      <span class="overload">#<strong>===</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns <code>true</code> if the content of the mapped memory is equal to <code>other</code>. Compares with other Mmap objects or strings.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>==</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>===</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 610</span>
+
+static VALUE
+rb_cMmap_equal(VALUE self, VALUE other)
+{
+  VALUE result;
+  mmap_t *mmap, *other_mmap;
+
+  if (self == other) return Qtrue;
+  if (!rb_typeddata_is_kind_of(other, &amp;mmap_type)) return Qfalse;
+
+  GET_MMAP(self, mmap, 0);
+  GET_MMAP(other, other_mmap, 0);
+  if (mmap-&gt;real != other_mmap-&gt;real) {
+    return Qfalse;
+  }
+
+  self = mmap_str(self, MMAP_RUBY_ORIGIN);
+  other = mmap_str(other, MMAP_RUBY_ORIGIN);
+  result = rb_funcall2(self, rb_intern(&quot;==&quot;), 1, &amp;other);
+  RB_GC_GUARD(self);
+  RB_GC_GUARD(other);
+  return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="===-instance_method">
+  
+    
+      <span class="overload">#<strong>==</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+    
+      <span class="overload">#<strong>===</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns <code>true</code> if the content of the mapped memory is equal to <code>other</code>. Compares with other Mmap objects or strings.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>==</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>===</strong>(other)  &#x21d2; <tt>Boolean</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 610</span>
+
+static VALUE
+rb_cMmap_equal(VALUE self, VALUE other)
+{
+  VALUE result;
+  mmap_t *mmap, *other_mmap;
+
+  if (self == other) return Qtrue;
+  if (!rb_typeddata_is_kind_of(other, &amp;mmap_type)) return Qfalse;
+
+  GET_MMAP(self, mmap, 0);
+  GET_MMAP(other, other_mmap, 0);
+  if (mmap-&gt;real != other_mmap-&gt;real) {
+    return Qfalse;
+  }
+
+  self = mmap_str(self, MMAP_RUBY_ORIGIN);
+  other = mmap_str(other, MMAP_RUBY_ORIGIN);
+  result = rb_funcall2(self, rb_intern(&quot;==&quot;), 1, &amp;other);
+  RB_GC_GUARD(self);
+  RB_GC_GUARD(other);
+  return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="=~-instance_method">
+  
+    #<strong>=~</strong>(other)  &#x21d2; <tt>Integer</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the index of the first match of <code>other</code> in the mapped memory, or <code>nil</code> if no match is found. The <code>other</code> parameter can be a Regexp, String, or any object that responds to <tt>=~</tt>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 686</span>
+
+static VALUE
+rb_cMmap_match(VALUE self, VALUE other)
+{
+  VALUE reg, res, self_str;
+  long start;
+
+  self_str = mmap_str(self, MMAP_RUBY_ORIGIN);
+  if (rb_typeddata_is_kind_of(other, &amp;mmap_type)) {
+    other = rb_cMmap_to_str(other);
+  }
+
+  switch (TYPE(other)) {
+    case T_REGEXP:
+      res = rb_reg_match(other, self_str);
+      break;
+
+    case T_STRING:
+      reg = rb_reg_regcomp(other);
+      start = rb_reg_search(reg, self_str, 0, 0);
+      if (start == -1) {
+        res = Qnil;
+      }
+      else {
+        res = LONG2NUM(start);
+      }
+      break;
+
+    default:
+      res = rb_funcall(other, rb_intern(&quot;=~&quot;), 1, self_str);
+      break;
+  }
+
+  RB_GC_GUARD(self_str);
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="[]-instance_method">
+  
+    
+      <span class="overload">#<strong>[]</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>[]</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>[]</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>[]</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Element reference with the following syntax:</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_nth'>nth</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Retrieves the <code>nth</code> character.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='op'>..</span><span class='id identifier rubyid_last'>last</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Returns a substring from <code>start</code> to <code>last</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Returns a substring of <code>length</code> characters from <code>start</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Returns the first match of <code>pattern</code> (String or Regexp).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+923
+924
+925
+926
+927</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 923</span>
+
+static VALUE
+rb_cMmap_aref(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;[]&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="[]=-instance_method">
+  
+    
+      <span class="overload">#<strong>[]=</strong>(nth, val)  &#x21d2; <tt>Object</tt> </span>
+    
+      <span class="overload">#<strong>[]=</strong>(start, length, val)  &#x21d2; <tt>Object</tt> </span>
+    
+      <span class="overload">#<strong>[]=</strong>(start..last, val)  &#x21d2; <tt>Object</tt> </span>
+    
+      <span class="overload">#<strong>[]=</strong>(pattern, val)  &#x21d2; <tt>Object</tt> </span>
+    
+      <span class="overload">#<strong>[]=</strong>(pattern, nth, val)  &#x21d2; <tt>Object</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Element assignment with the following syntax:</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_nth'>nth</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
+</code></pre>
+
+<p>Changes the <code>nth</code> character with <code>val</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='op'>..</span><span class='id identifier rubyid_last'>last</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
+</code></pre>
+
+<p>Changes substring from <code>start</code> to <code>last</code> with <code>val</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
+</code></pre>
+
+<p>Replaces <code>length</code> characters from <code>start</code> with <code>val</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
+</code></pre>
+
+<p>Replaces the first match of <code>pattern</code> with <code>val</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='id identifier rubyid_nth'>nth</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
+</code></pre>
+
+<p>Replaces the <code>nth</code> match of <code>pattern</code> with <code>val</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1099
+1100
+1101
+1102
+1103
+1104
+1105
+1106
+1107
+1108
+1109
+1110
+1111
+1112
+1113
+1114
+1115
+1116
+1117
+1118
+1119
+1120
+1121
+1122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1099</span>
+
+static VALUE
+rb_cMmap_aset(int argc, VALUE *argv, VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (argc == 3) {
+    long beg, len;
+
+    if (TYPE(argv[0]) == T_REGEXP) {
+      mmap_subpat_set(self, argv[0], NUM2INT(argv[1]), argv[2]);
+    }
+    else {
+      beg = NUM2INT(argv[0]);
+      len = NUM2INT(argv[1]);
+      mmap_update(mmap, beg, len, argv[2]);
+    }
+    return argv[2];
+  }
+  if (argc != 2) {
+    rb_raise(rb_eArgError, &quot;wrong # of arguments(%d for 2)&quot;, argc);
+  }
+  return mmap_aset_m(self, argv[0], argv[1]);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="advise-instance_method">
+  
+    
+      <span class="overload">#<strong>madvise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">#<strong>advise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Gives advice to the kernel about how the mapped memory will be accessed. The <code>advice</code> parameter can be one of the following constants: MADV_NORMAL, MADV_RANDOM, MADV_SEQUENTIAL, MADV_WILLNEED, or MADV_DONTNEED.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>madvise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>advise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2313
+2314
+2315
+2316
+2317
+2318
+2319
+2320
+2321
+2322
+2323
+2324</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2313</span>
+
+static VALUE
+rb_cMmap_madvise(VALUE self, VALUE advice)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  if (madvise(mmap-&gt;addr, mmap-&gt;len, NUM2INT(advice)) == -1) {
+    rb_raise(rb_eTypeError, &quot;madvise(%d)&quot;, errno);
+  }
+  mmap-&gt;advice = NUM2INT(advice);
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="capitalize!-instance_method">
+  
+    #<strong>capitalize!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Changes the first character to uppercase letter in the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1726
+1727
+1728
+1729
+1730
+1731
+1732
+1733
+1734
+1735
+1736
+1737
+1738
+1739
+1740
+1741
+1742
+1743
+1744
+1745
+1746
+1747</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1726</span>
+
+static VALUE
+rb_cMmap_capitalize_bang(VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = 0;
+  bang_st.argv = NULL;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_capitalize_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_capitalize_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="casecmp-instance_method">
+  
+    #<strong>casecmp</strong>(other)  &#x21d2; <tt>-1</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Performs a case-insensitive comparison of the mapped memory with <code>other</code>. Returns -1, 0, or 1 depending on whether the mapped memory is less than, equal to, or greater than <code>other</code>. Returns <code>nil</code> if the two values are incomparable.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>-1</tt>, <tt>0</tt>, <tt>1</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 664</span>
+
+static VALUE
+rb_cMmap_casecmp(VALUE self, VALUE other)
+{
+  VALUE result;
+  VALUE self_str, other_str;
+
+  self_str = mmap_str(self, MMAP_RUBY_ORIGIN);
+  other_str = rb_str_to_str(other);
+  result = rb_funcall2(self_str, rb_intern(&quot;casecmp&quot;), 1, &amp;other_str);
+  RB_GC_GUARD(self_str);
+  RB_GC_GUARD(other_str);
+  return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="chomp!-instance_method">
+  
+    #<strong>chomp!</strong>(rs = $/)  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Chops off line ending character specified by <code>rs</code> in the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2046
+2047
+2048
+2049
+2050
+2051
+2052
+2053
+2054
+2055
+2056
+2057
+2058
+2059
+2060
+2061
+2062
+2063
+2064
+2065
+2066
+2067</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2046</span>
+
+static VALUE
+rb_cMmap_chomp_bang(int argc, VALUE *argv, VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = argc;
+  bang_st.argv = argv;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_chomp_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_chomp_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="chop!-instance_method">
+  
+    #<strong>chop!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Chops off the last character in the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1948
+1949
+1950
+1951
+1952
+1953
+1954
+1955
+1956
+1957
+1958
+1959
+1960
+1961
+1962
+1963
+1964
+1965
+1966
+1967
+1968
+1969</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1948</span>
+
+static VALUE
+rb_cMmap_chop_bang(VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = 0;
+  bang_st.argv = NULL;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_chop_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_chop_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="clone-instance_method">
+  
+    #<strong>clone</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TypeError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mmap-ruby/mmap.rb', line 8</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_clone'>clone</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can&#39;t clone instance of </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="concat-instance_method">
+  
+    
+      <span class="overload">#<strong>concat</strong>(other)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>&lt;&lt;</strong>(other)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Appends the contents of <code>other</code> to the mapped memory. If <code>other</code> is an integer between 0 and 255, it is treated as a byte value. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>concat</strong>(other)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>&lt;&lt;</strong>(other)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1293
+1294
+1295
+1296
+1297
+1298
+1299
+1300
+1301
+1302
+1303
+1304
+1305</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1293</span>
+
+static VALUE
+rb_cMmap_concat(VALUE self, VALUE other)
+{
+  if (FIXNUM_P(other)) {
+    int i = FIX2INT(other);
+    if (0 &lt;= i &amp;&amp; i &lt;= 0xff) {
+      char c = i;
+      return mmap_cat(self, &amp;c, 1);
+    }
+  }
+  self = mmap_append(self, other);
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="count-instance_method">
+  
+    #<strong>count</strong>(o1, *args)  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Each parameter defines a set of characters to count in the mapped memory. Returns the total count.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1203
+1204
+1205
+1206
+1207</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1203</span>
+
+static VALUE
+rb_cMmap_count(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;count&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="crypt-instance_method">
+  
+    #<strong>crypt</strong>(salt)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Encrypts the mapped memory using the standard Unix crypt function with the given <code>salt</code>. Returns the encrypted string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2237
+2238
+2239
+2240
+2241</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2237</span>
+
+static VALUE
+rb_cMmap_crypt(VALUE self, VALUE salt)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;crypt&quot;), 1, &amp;salt);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete!-instance_method">
+  
+    #<strong>delete!</strong>(str)  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes every character included in <code>str</code> from the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2106
+2107
+2108
+2109
+2110
+2111
+2112
+2113
+2114
+2115
+2116
+2117
+2118
+2119
+2120
+2121
+2122
+2123
+2124
+2125
+2126
+2127</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2106</span>
+
+static VALUE
+rb_cMmap_delete_bang(int argc, VALUE *argv, VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = argc;
+  bang_st.argv = argv;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_delete_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_delete_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="downcase!-instance_method">
+  
+    #<strong>downcase!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Changes all uppercase characters to lowercase characters in the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1660
+1661
+1662
+1663
+1664
+1665
+1666
+1667
+1668
+1669
+1670
+1671
+1672
+1673
+1674
+1675
+1676
+1677
+1678
+1679
+1680
+1681</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1660</span>
+
+static VALUE
+rb_cMmap_downcase_bang(VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = 0;
+  bang_st.argv = NULL;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_downcase_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_downcase_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="dup-instance_method">
+  
+    #<strong>dup</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TypeError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mmap-ruby/mmap.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dup'>dup</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can&#39;t dup instance of </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each_byte-instance_method">
+  
+    #<strong>each_byte</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='each-instance_method'>each</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>See String#each_byte</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mmap-ruby/mmap.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each_byte'>each_byte</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_to_str'>to_str</span><span class='period'>.</span><span class='id identifier rubyid_each_byte'>each_byte</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="each_line-instance_method">
+  
+    #<strong>each_line</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>See String#each_line</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mmap-ruby/mmap.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_each_line'>each_line</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_to_str'>to_str</span><span class='period'>.</span><span class='id identifier rubyid_each_line'>each_line</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="empty?-instance_method">
+  
+    #<strong>empty?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns <code>true</code> if the file is empty, <code>false</code> otherwise.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+884
+885
+886
+887
+888
+889
+890
+891
+892</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 884</span>
+
+static VALUE
+rb_cMmap_empty(VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  if (mmap-&gt;real == 0) return Qtrue;
+  return Qfalse;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eql?-instance_method">
+  
+    #<strong>eql?</strong>(other)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns <code>true</code> if the content and type of the mapped memory is equal to <code>other</code>. Unlike <tt>==</tt>, this method only returns <code>true</code> for other Mmap objects, not strings.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 584</span>
+
+static VALUE
+rb_cMmap_eql(VALUE self, VALUE other)
+{
+  mmap_t *mmap, *other_mmap;
+
+  if (self == other) return Qtrue;
+  if (!rb_typeddata_is_kind_of(other, &amp;mmap_type)) return Qfalse;
+
+  GET_MMAP(self, mmap, 0);
+  GET_MMAP(other, other_mmap, 0);
+  if (mmap-&gt;real != other_mmap-&gt;real) {
+    return Qfalse;
+  }
+
+  if (memcmp(mmap-&gt;addr, other_mmap-&gt;addr, mmap-&gt;real) == 0) return Qtrue;
+  return Qfalse;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="extend-instance_method">
+  
+    #<strong>extend</strong>(count)  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Adds <code>count</code> bytes to the file (i.e. pre-extends the file). Returns the new size of the mapped memory.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2511
+2512
+2513
+2514
+2515
+2516
+2517
+2518
+2519
+2520
+2521
+2522
+2523</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2511</span>
+
+static VALUE
+rb_cMmap_extend(VALUE self, VALUE count)
+{
+  mmap_t *mmap;
+  long len;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  len = NUM2LONG(count);
+  if (len &gt; 0) {
+    mmap_expandf(mmap, mmap-&gt;len + len);
+  }
+  return SIZET2NUM(mmap-&gt;len);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="flush-instance_method">
+  
+    
+      <span class="overload">#<strong>msync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>sync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>flush</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Flushes the mapped memory to the underlying file. The <code>flag</code> parameter controls the synchronization behavior (MS_SYNC, MS_ASYNC, or MS_INVALIDATE). Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>msync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>sync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>flush</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2428
+2429
+2430
+2431
+2432
+2433
+2434
+2435
+2436
+2437
+2438
+2439
+2440
+2441
+2442
+2443
+2444
+2445
+2446
+2447
+2448
+2449
+2450
+2451</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2428</span>
+
+static VALUE
+rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
+{
+  mmap_t *mmap;
+  VALUE oflag;
+  int ret;
+  int flag = MS_SYNC;
+
+  if (argc) {
+    rb_scan_args(argc, argv, &quot;01&quot;, &amp;oflag);
+    flag = NUM2INT(oflag);
+  }
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if ((ret = msync(mmap-&gt;addr, mmap-&gt;len, flag)) != 0) {
+    rb_raise(rb_eArgError, &quot;msync(%d)&quot;, ret);
+  }
+
+  if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp; mmap-&gt;vscope != MAP_PRIVATE) {
+    mmap_expandf(mmap, mmap-&gt;real);
+  }
+
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="gsub!-instance_method">
+  
+    
+      <span class="overload">#<strong>gsub!</strong>(pattern, replacement)  &#x21d2; <tt>self</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>gsub!</strong>(pattern) {|match| ... } &#x21d2; <tt>self</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Performs global substitution on the mapped memory. Returns <code>self</code> if any substitutions were made, or <code>nil</code> if no substitutions occurred.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>gsub!</strong>(pattern, replacement)  &#x21d2; <tt>self</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>gsub!</strong>(pattern) {|match| ... } &#x21d2; <tt>self</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="#match-instance_method" title="MmapRuby::Mmap#match (method)">match</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1542
+1543
+1544
+1545
+1546
+1547
+1548
+1549
+1550
+1551
+1552
+1553
+1554
+1555
+1556
+1557
+1558
+1559
+1560
+1561
+1562
+1563</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1542</span>
+
+static VALUE
+rb_cMmap_gsub_bang(int argc, VALUE *argv, VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = argc;
+  bang_st.argv = argv;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_gsub_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_gsub_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hash-instance_method">
+  
+    #<strong>hash</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the hash value for the mapped memory content. Objects with the same content will have the same hash value.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 565</span>
+
+static VALUE
+rb_cMmap_hash(VALUE self)
+{
+  VALUE str;
+  VALUE result;
+
+  str = mmap_str(self, MMAP_RUBY_ORIGIN);
+  result = rb_funcall(str, rb_intern(&quot;hash&quot;), 0);
+  RB_GC_GUARD(str);
+  return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="include?-instance_method">
+  
+    #<strong>include?</strong>(other)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns <code>true</code> if <code>other</code> is found in the mapped memory, <code>false</code> otherwise. The <code>other</code> parameter can be a string or regular expression.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1164
+1165
+1166
+1167
+1168</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1164</span>
+
+static VALUE
+rb_cMmap_include(VALUE self, VALUE other)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;include?&quot;), 1, &amp;other);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="index-instance_method">
+  
+    
+      <span class="overload">#<strong>index</strong>(substr)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>index</strong>(pattern)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the index of <code>substr</code> or <code>pattern</code>, or <code>nil</code> if not found.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>index</strong>(substr)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>index</strong>(pattern)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1177
+1178
+1179
+1180
+1181</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1177</span>
+
+static VALUE
+rb_cMmap_index(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;index&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="insert-instance_method">
+  
+    #<strong>insert</strong>(index, str)  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Inserts <code>str</code> at <code>index</code>. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1227
+1228
+1229
+1230
+1231
+1232
+1233
+1234
+1235
+1236
+1237
+1238
+1239
+1240
+1241
+1242</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1227</span>
+
+static VALUE
+rb_cMmap_insert(VALUE self, VALUE idx, VALUE str)
+{
+  mmap_t *mmap;
+  long pos = NUM2LONG(idx);
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (pos == -1) {
+    pos = mmap-&gt;real;
+  }
+  else if (pos &lt; 0) {
+    pos++;
+  }
+  mmap_update(mmap, pos, 0, str);
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ipc_key-instance_method">
+  
+    #<strong>ipc_key</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Gets the IPC key.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2589
+2590
+2591
+2592
+2593
+2594
+2595
+2596
+2597
+2598
+2599</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2589</span>
+
+static VALUE
+rb_cMmap_ipc_key(VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    return INT2NUM((int)mmap-&gt;key);
+  }
+  return INT2NUM(-1);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="length-instance_method">
+  
+    
+      <span class="overload">#<strong>length</strong>  &#x21d2; <tt>Integer</tt> </span>
+    
+      <span class="overload">#<strong>size</strong>  &#x21d2; <tt>Integer</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the size of the file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>length</strong>  &#x21d2; <tt>Integer</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>size</strong>  &#x21d2; <tt>Integer</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+869
+870
+871
+872
+873
+874
+875
+876</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 869</span>
+
+static VALUE
+rb_cMmap_size(VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  return SIZET2NUM(mmap-&gt;real);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="lock-instance_method">
+  
+    
+      <span class="overload">#<strong>lock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>mlock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Disables paging for the mapped memory, locking it in physical memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>lock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>mlock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2461
+2462
+2463
+2464
+2465
+2466
+2467
+2468
+2469
+2470
+2471
+2472
+2473
+2474
+2475
+2476
+2477
+2478</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2461</span>
+
+static VALUE
+rb_cMmap_mlock(VALUE self)
+{
+  mmap_t *mmap;
+
+  TypedData_Get_Struct(self, mmap_t, &amp;mmap_type, mmap);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_LOCK) {
+    return self;
+  }
+  if (mmap-&gt;flag &amp; MMAP_RUBY_ANON) {
+    rb_raise(rb_eArgError, &quot;mlock(anonymous)&quot;);
+  }
+  if (mlock(mmap-&gt;addr, mmap-&gt;len) == -1) {
+    rb_raise(rb_eArgError, &quot;mlock(%d)&quot;, errno);
+  }
+  mmap-&gt;flag |= MMAP_RUBY_LOCK;
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="madvise-instance_method">
+  
+    
+      <span class="overload">#<strong>madvise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">#<strong>advise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Gives advice to the kernel about how the mapped memory will be accessed. The <code>advice</code> parameter can be one of the following constants: MADV_NORMAL, MADV_RANDOM, MADV_SEQUENTIAL, MADV_WILLNEED, or MADV_DONTNEED.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>madvise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>advise</strong>(advice)  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2313
+2314
+2315
+2316
+2317
+2318
+2319
+2320
+2321
+2322
+2323
+2324</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2313</span>
+
+static VALUE
+rb_cMmap_madvise(VALUE self, VALUE advice)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  if (madvise(mmap-&gt;addr, mmap-&gt;len, NUM2INT(advice)) == -1) {
+    rb_raise(rb_eTypeError, &quot;madvise(%d)&quot;, errno);
+  }
+  mmap-&gt;advice = NUM2INT(advice);
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="match-instance_method">
+  
+    #<strong>match</strong>(pattern)  &#x21d2; <tt>MatchData</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Converts <code>pattern</code> to a Regexp (if it isn’t already one) and returns a MatchData object describing the match, or <code>nil</code> if there was no match. This is equivalent to calling <code>pattern.match</code> on the mapped memory content.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>MatchData</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+856
+857
+858
+859
+860</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 856</span>
+
+static VALUE
+rb_cMmap_match_m(VALUE self, VALUE pattern)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;match&quot;), 1, &amp;pattern);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mlock-instance_method">
+  
+    
+      <span class="overload">#<strong>lock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>mlock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Disables paging for the mapped memory, locking it in physical memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>lock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>mlock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2461
+2462
+2463
+2464
+2465
+2466
+2467
+2468
+2469
+2470
+2471
+2472
+2473
+2474
+2475
+2476
+2477
+2478</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2461</span>
+
+static VALUE
+rb_cMmap_mlock(VALUE self)
+{
+  mmap_t *mmap;
+
+  TypedData_Get_Struct(self, mmap_t, &amp;mmap_type, mmap);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_LOCK) {
+    return self;
+  }
+  if (mmap-&gt;flag &amp; MMAP_RUBY_ANON) {
+    rb_raise(rb_eArgError, &quot;mlock(anonymous)&quot;);
+  }
+  if (mlock(mmap-&gt;addr, mmap-&gt;len) == -1) {
+    rb_raise(rb_eArgError, &quot;mlock(%d)&quot;, errno);
+  }
+  mmap-&gt;flag |= MMAP_RUBY_LOCK;
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mprotect-instance_method">
+  
+    
+      <span class="overload">#<strong>mprotect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>protect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Changes the memory protection mode. The <code>mode</code> value must be “r”, “w”, “rw”, or an integer representing protection flags. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>mprotect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>protect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2251
+2252
+2253
+2254
+2255
+2256
+2257
+2258
+2259
+2260
+2261
+2262
+2263
+2264
+2265
+2266
+2267
+2268
+2269
+2270
+2271
+2272
+2273
+2274
+2275
+2276
+2277
+2278
+2279
+2280
+2281
+2282
+2283
+2284
+2285
+2286
+2287
+2288
+2289
+2290
+2291
+2292
+2293
+2294
+2295
+2296
+2297
+2298
+2299
+2300
+2301
+2302</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2251</span>
+
+static VALUE
+rb_cMmap_mprotect(VALUE self, VALUE mode)
+{
+  mmap_t *mmap;
+  int ret, pmode;
+  const char *smode;
+
+  GET_MMAP(self, mmap, 0);
+  if (TYPE(mode) == T_STRING) {
+    smode = StringValuePtr(mode);
+    if (strcmp(smode, &quot;r&quot;) == 0) {
+      pmode = PROT_READ;
+    }
+    else if (strcmp(smode, &quot;w&quot;) == 0) {
+      pmode = PROT_WRITE;
+    }
+    else if (strcmp(smode, &quot;rw&quot;) == 0 || strcmp(smode, &quot;wr&quot;) == 0) {
+      pmode = PROT_READ | PROT_WRITE;
+    }
+    else {
+      rb_raise(rb_eArgError, &quot;invalid mode %s&quot;, smode);
+    }
+  }
+  else {
+    pmode = NUM2INT(mode);
+  }
+
+  if ((pmode &amp; PROT_WRITE) &amp;&amp; RB_OBJ_FROZEN(self)) {
+    rb_check_frozen(self);
+  }
+
+  if ((ret = mprotect(mmap-&gt;addr, mmap-&gt;len, pmode | PROT_READ)) != 0) {
+    rb_raise(rb_eArgError, &quot;mprotect(%d)&quot;, ret);
+  }
+
+  mmap-&gt;pmode = pmode;
+  if (pmode &amp; PROT_READ) {
+    if (pmode &amp; PROT_WRITE) {
+      mmap-&gt;smode = O_RDWR;
+    }
+    else {
+      mmap-&gt;smode = O_RDONLY;
+      self = rb_obj_freeze(self);
+    }
+  }
+  else if (pmode &amp; PROT_WRITE) {
+    mmap-&gt;flag |= MMAP_RUBY_FIXED;
+    mmap-&gt;smode = O_WRONLY;
+  }
+
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="msync-instance_method">
+  
+    
+      <span class="overload">#<strong>msync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>sync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>flush</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Flushes the mapped memory to the underlying file. The <code>flag</code> parameter controls the synchronization behavior (MS_SYNC, MS_ASYNC, or MS_INVALIDATE). Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>msync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>sync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>flush</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2428
+2429
+2430
+2431
+2432
+2433
+2434
+2435
+2436
+2437
+2438
+2439
+2440
+2441
+2442
+2443
+2444
+2445
+2446
+2447
+2448
+2449
+2450
+2451</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2428</span>
+
+static VALUE
+rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
+{
+  mmap_t *mmap;
+  VALUE oflag;
+  int ret;
+  int flag = MS_SYNC;
+
+  if (argc) {
+    rb_scan_args(argc, argv, &quot;01&quot;, &amp;oflag);
+    flag = NUM2INT(oflag);
+  }
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if ((ret = msync(mmap-&gt;addr, mmap-&gt;len, flag)) != 0) {
+    rb_raise(rb_eArgError, &quot;msync(%d)&quot;, ret);
+  }
+
+  if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp; mmap-&gt;vscope != MAP_PRIVATE) {
+    mmap_expandf(mmap, mmap-&gt;real);
+  }
+
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="munlock-instance_method">
+  
+    
+      <span class="overload">#<strong>unlock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>munlock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Re-enables paging for the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>unlock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>munlock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2488
+2489
+2490
+2491
+2492
+2493
+2494
+2495
+2496
+2497
+2498
+2499
+2500
+2501
+2502</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2488</span>
+
+static VALUE
+rb_cMmap_munlock(VALUE self)
+{
+  mmap_t *mmap;
+
+  TypedData_Get_Struct(self, mmap_t, &amp;mmap_type, mmap);
+  if (!(mmap-&gt;flag &amp; MMAP_RUBY_LOCK)) {
+    return self;
+  }
+  if (munlock(mmap-&gt;addr, mmap-&gt;len) == -1) {
+    rb_raise(rb_eArgError, &quot;munlock(%d)&quot;, errno);
+  }
+  mmap-&gt;flag &amp;= ~MMAP_RUBY_LOCK;
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="munmap-instance_method">
+  
+    
+      <span class="overload">#<strong>munmap</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">#<strong>unmap</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Terminates the association between the mapped memory and the file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>munmap</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>unmap</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2532
+2533
+2534
+2535
+2536
+2537
+2538
+2539
+2540
+2541
+2542
+2543
+2544
+2545
+2546
+2547
+2548
+2549
+2550
+2551
+2552
+2553</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2532</span>
+
+static VALUE
+rb_cMmap_unmap(VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  if (mmap-&gt;path) {
+    mmap_lock(mmap, Qtrue);
+    munmap(mmap-&gt;addr, mmap-&gt;len);
+    if (mmap-&gt;path != (char *)(intptr_t)-1) {
+      if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp;
+          mmap-&gt;vscope != MAP_PRIVATE &amp;&amp;
+          truncate(mmap-&gt;path, mmap-&gt;real) == -1) {
+        rb_raise(rb_eTypeError, &quot;truncate&quot;);
+      }
+      free(mmap-&gt;path);
+    }
+    mmap-&gt;path = NULL;
+    mmap_unlock(mmap);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="protect-instance_method">
+  
+    
+      <span class="overload">#<strong>mprotect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>protect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Changes the memory protection mode. The <code>mode</code> value must be “r”, “w”, “rw”, or an integer representing protection flags. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>mprotect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>protect</strong>(mode)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2251
+2252
+2253
+2254
+2255
+2256
+2257
+2258
+2259
+2260
+2261
+2262
+2263
+2264
+2265
+2266
+2267
+2268
+2269
+2270
+2271
+2272
+2273
+2274
+2275
+2276
+2277
+2278
+2279
+2280
+2281
+2282
+2283
+2284
+2285
+2286
+2287
+2288
+2289
+2290
+2291
+2292
+2293
+2294
+2295
+2296
+2297
+2298
+2299
+2300
+2301
+2302</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2251</span>
+
+static VALUE
+rb_cMmap_mprotect(VALUE self, VALUE mode)
+{
+  mmap_t *mmap;
+  int ret, pmode;
+  const char *smode;
+
+  GET_MMAP(self, mmap, 0);
+  if (TYPE(mode) == T_STRING) {
+    smode = StringValuePtr(mode);
+    if (strcmp(smode, &quot;r&quot;) == 0) {
+      pmode = PROT_READ;
+    }
+    else if (strcmp(smode, &quot;w&quot;) == 0) {
+      pmode = PROT_WRITE;
+    }
+    else if (strcmp(smode, &quot;rw&quot;) == 0 || strcmp(smode, &quot;wr&quot;) == 0) {
+      pmode = PROT_READ | PROT_WRITE;
+    }
+    else {
+      rb_raise(rb_eArgError, &quot;invalid mode %s&quot;, smode);
+    }
+  }
+  else {
+    pmode = NUM2INT(mode);
+  }
+
+  if ((pmode &amp; PROT_WRITE) &amp;&amp; RB_OBJ_FROZEN(self)) {
+    rb_check_frozen(self);
+  }
+
+  if ((ret = mprotect(mmap-&gt;addr, mmap-&gt;len, pmode | PROT_READ)) != 0) {
+    rb_raise(rb_eArgError, &quot;mprotect(%d)&quot;, ret);
+  }
+
+  mmap-&gt;pmode = pmode;
+  if (pmode &amp; PROT_READ) {
+    if (pmode &amp; PROT_WRITE) {
+      mmap-&gt;smode = O_RDWR;
+    }
+    else {
+      mmap-&gt;smode = O_RDONLY;
+      self = rb_obj_freeze(self);
+    }
+  }
+  else if (pmode &amp; PROT_WRITE) {
+    mmap-&gt;flag |= MMAP_RUBY_FIXED;
+    mmap-&gt;smode = O_WRONLY;
+  }
+
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reverse!-instance_method">
+  
+    #<strong>reverse!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Reverses the characters in the mapped memory in place. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1846
+1847
+1848
+1849
+1850
+1851
+1852
+1853
+1854
+1855
+1856
+1857
+1858
+1859
+1860
+1861
+1862
+1863
+1864
+1865
+1866
+1867</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1846</span>
+
+static VALUE
+rb_cMmap_reverse_bang(VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = 0;
+  bang_st.argv = NULL;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_reverse_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_reverse_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rindex-instance_method">
+  
+    
+      <span class="overload">#<strong>rindex</strong>(substr, pos = nil)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>rindex</strong>(pattern, pos = nil)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the index of the last occurrence of <code>substr</code> or <code>pattern</code>, or <code>nil</code> if not found.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>rindex</strong>(substr, pos = nil)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>rindex</strong>(pattern, pos = nil)  &#x21d2; <tt>Integer</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1190
+1191
+1192
+1193
+1194</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1190</span>
+
+static VALUE
+rb_cMmap_rindex(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;rindex&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="scan-instance_method">
+  
+    #<strong>scan</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>See String#scan</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/mmap-ruby/mmap.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_to_str'>to_str</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="semlock-instance_method">
+  
+    #<strong>semlock</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates a lock.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2561
+2562
+2563
+2564
+2565
+2566
+2567
+2568
+2569
+2570
+2571
+2572
+2573
+2574
+2575
+2576
+2577
+2578
+2579
+2580
+2581</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2561</span>
+
+static VALUE
+rb_cMmap_semlock(int argc, VALUE *argv, VALUE self)
+{
+  mmap_t *mmap;
+  VALUE a;
+  int wait_lock = Qtrue;
+
+  GET_MMAP(self, mmap, 0);
+  if (!(mmap-&gt;flag &amp; MMAP_RUBY_IPC)) {
+    rb_warning(&quot;useless use of #semlock&quot;);
+    rb_yield(self);
+  }
+  else {
+    if (rb_scan_args(argc, argv, &quot;01&quot;, &amp;a)) {
+      wait_lock = RTEST(a);
+    }
+    mmap_lock(mmap, wait_lock);
+    rb_ensure(rb_yield, self, mmap_vunlock, self);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="size-instance_method">
+  
+    
+      <span class="overload">#<strong>length</strong>  &#x21d2; <tt>Integer</tt> </span>
+    
+      <span class="overload">#<strong>size</strong>  &#x21d2; <tt>Integer</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the size of the file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>length</strong>  &#x21d2; <tt>Integer</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>size</strong>  &#x21d2; <tt>Integer</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+869
+870
+871
+872
+873
+874
+875
+876</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 869</span>
+
+static VALUE
+rb_cMmap_size(VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  return SIZET2NUM(mmap-&gt;real);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="slice-instance_method">
+  
+    
+      <span class="overload">#<strong>[]</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>[]</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>[]</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>[]</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Element reference with the following syntax:</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_nth'>nth</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Retrieves the <code>nth</code> character.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='op'>..</span><span class='id identifier rubyid_last'>last</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Returns a substring from <code>start</code> to <code>last</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Returns a substring of <code>length</code> characters from <code>start</code>.</p>
+
+<pre class="code"><code class=""><span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Returns the first match of <code>pattern</code> (String or Regexp).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>[]</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+923
+924
+925
+926
+927</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 923</span>
+
+static VALUE
+rb_cMmap_aref(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;[]&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="slice!-instance_method">
+  
+    
+      <span class="overload">#<strong>slice!</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice!</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice!</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>slice!</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes the specified portion of the mapped memory and returns it. Returns <code>nil</code> if the portion is not found.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice!</strong>(nth)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice!</strong>(start, length)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice!</strong>(start..last)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>slice!</strong>(pattern)  &#x21d2; <tt>String</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1134
+1135
+1136
+1137
+1138
+1139
+1140
+1141
+1142
+1143
+1144
+1145
+1146
+1147
+1148
+1149
+1150
+1151
+1152
+1153
+1154
+1155</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1134</span>
+
+static VALUE
+rb_cMmap_slice_bang(int argc, VALUE *argv, VALUE self)
+{
+  VALUE result;
+  VALUE buf[3];
+  int i;
+
+  if (argc &lt; 1 || 2 &lt; argc) {
+    rb_raise(rb_eArgError, &quot;wrong # of arguments(%d for 1)&quot;, argc);
+  }
+
+  for (i = 0; i &lt; argc; i++) {
+    buf[i] = argv[i];
+  }
+  buf[i] = rb_str_new(0, 0);
+  result = rb_cMmap_aref(argc, buf, self);
+  if (!NIL_P(result)) {
+    rb_cMmap_aset(argc + 1, buf, self);
+  }
+
+  return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="split-instance_method">
+  
+    #<strong>split</strong>(sep = $/, limit = 0)  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Splits the mapped memory into an array of strings and returns this array. The <code>sep</code> parameter specifies the separator pattern (String or Regexp). The <code>limit</code> parameter controls the number of splits.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2224
+2225
+2226
+2227
+2228</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2224</span>
+
+static VALUE
+rb_cMmap_split(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;split&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="squeeze!-instance_method">
+  
+    #<strong>squeeze!</strong>(str)  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Squeezes sequences of the same characters that are included in <code>str</code>. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2193
+2194
+2195
+2196
+2197
+2198
+2199
+2200
+2201
+2202
+2203
+2204
+2205
+2206
+2207
+2208
+2209
+2210
+2211
+2212
+2213
+2214</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2193</span>
+
+static VALUE
+rb_cMmap_squeeze_bang(int argc, VALUE *argv, VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = argc;
+  bang_st.argv = argv;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_squeeze_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_squeeze_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="strip!-instance_method">
+  
+    #<strong>strip!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Removes leading and trailing whitespace from the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1876
+1877
+1878
+1879
+1880
+1881
+1882
+1883
+1884
+1885
+1886
+1887
+1888
+1889
+1890
+1891
+1892
+1893
+1894
+1895
+1896
+1897
+1898
+1899
+1900
+1901
+1902
+1903
+1904
+1905
+1906
+1907
+1908</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1876</span>
+
+static VALUE
+rb_cMmap_strip_bang(VALUE self)
+{
+  char *s, *t, *e;
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  mmap_lock(mmap, Qtrue);
+  s = (char *)mmap-&gt;addr;
+  e = t = s + mmap-&gt;real;
+  while (s &lt; t &amp;&amp; ISSPACE(*s)) s++;
+  t--;
+  while (s &lt;= t &amp;&amp; ISSPACE(*t)) t--;
+  t++;
+
+  if (mmap-&gt;real != (size_t)(t - s) &amp;&amp; (mmap-&gt;flag &amp; MMAP_RUBY_FIXED)) {
+    mmap_unlock(mmap);
+    rb_raise(rb_eTypeError, &quot;can&#39;t change the size of a fixed map&quot;);
+  }
+  mmap-&gt;real = t - s;
+  if (s &gt; (char *)mmap-&gt;addr) {
+    memmove(mmap-&gt;addr, s, mmap-&gt;real);
+    ((char *)mmap-&gt;addr)[mmap-&gt;real] = &#39;\0&#39;;
+  }
+  else if (t &lt; e) {
+    ((char *)mmap-&gt;addr)[mmap-&gt;real] = &#39;\0&#39;;
+  }
+  else {
+    self = Qnil;
+  }
+  mmap_unlock(mmap);
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sub!-instance_method">
+  
+    
+      <span class="overload">#<strong>sub!</strong>(pattern, replacement)  &#x21d2; <tt>self</tt><sup>?</sup> </span>
+    
+      <span class="overload">#<strong>sub!</strong>(pattern) {|match| ... } &#x21d2; <tt>self</tt><sup>?</sup> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Performs substitution on the mapped memory. Returns <code>self</code> if a substitution was made, or <code>nil</code> if no substitution occurred.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>sub!</strong>(pattern, replacement)  &#x21d2; <tt>self</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>sub!</strong>(pattern) {|match| ... } &#x21d2; <tt>self</tt><sup>?</sup> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="#match-instance_method" title="MmapRuby::Mmap#match (method)">match</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1424
+1425
+1426
+1427
+1428
+1429
+1430
+1431
+1432
+1433
+1434
+1435
+1436
+1437
+1438
+1439
+1440
+1441
+1442
+1443
+1444
+1445</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1424</span>
+
+static VALUE
+rb_cMmap_sub_bang(int argc, VALUE *argv, VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = argc;
+  bang_st.argv = argv;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_sub_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_sub_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sum-instance_method">
+  
+    #<strong>sum</strong>(bits = 16)  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a checksum for the mapped memory content.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1215
+1216
+1217
+1218
+1219</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1215</span>
+
+static VALUE
+rb_cMmap_sum(int argc, VALUE *argv, VALUE self)
+{
+  return mmap_bang_initialize(self, MMAP_RUBY_ORIGIN, rb_intern(&quot;sum&quot;), argc, argv);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="swapcase!-instance_method">
+  
+    #<strong>swapcase!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Replaces lowercase to uppercase and vice-versa in the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1788
+1789
+1790
+1791
+1792
+1793
+1794
+1795
+1796
+1797
+1798
+1799
+1800
+1801
+1802
+1803
+1804
+1805
+1806
+1807
+1808
+1809</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1788</span>
+
+static VALUE
+rb_cMmap_swapcase_bang(VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = 0;
+  bang_st.argv = NULL;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_swapcase_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_swapcase_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sync-instance_method">
+  
+    
+      <span class="overload">#<strong>msync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>sync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>flush</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Flushes the mapped memory to the underlying file. The <code>flag</code> parameter controls the synchronization behavior (MS_SYNC, MS_ASYNC, or MS_INVALIDATE). Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>msync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>sync</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>flush</strong>(flag = MS_SYNC)  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2428
+2429
+2430
+2431
+2432
+2433
+2434
+2435
+2436
+2437
+2438
+2439
+2440
+2441
+2442
+2443
+2444
+2445
+2446
+2447
+2448
+2449
+2450
+2451</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2428</span>
+
+static VALUE
+rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
+{
+  mmap_t *mmap;
+  VALUE oflag;
+  int ret;
+  int flag = MS_SYNC;
+
+  if (argc) {
+    rb_scan_args(argc, argv, &quot;01&quot;, &amp;oflag);
+    flag = NUM2INT(oflag);
+  }
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if ((ret = msync(mmap-&gt;addr, mmap-&gt;len, flag)) != 0) {
+    rb_raise(rb_eArgError, &quot;msync(%d)&quot;, ret);
+  }
+
+  if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp; mmap-&gt;vscope != MAP_PRIVATE) {
+    mmap_expandf(mmap, mmap-&gt;real);
+  }
+
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_str-instance_method">
+  
+    #<strong>to_str</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Convert object to a string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+552
+553
+554
+555
+556</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 552</span>
+
+static VALUE
+rb_cMmap_to_str(VALUE self)
+{
+  return mmap_str(self, MMAP_RUBY_ORIGIN);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unlock-instance_method">
+  
+    
+      <span class="overload">#<strong>unlock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+      <span class="overload">#<strong>munlock</strong>  &#x21d2; <tt>self</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Re-enables paging for the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>unlock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>munlock</strong>  &#x21d2; <tt>self</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2488
+2489
+2490
+2491
+2492
+2493
+2494
+2495
+2496
+2497
+2498
+2499
+2500
+2501
+2502</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2488</span>
+
+static VALUE
+rb_cMmap_munlock(VALUE self)
+{
+  mmap_t *mmap;
+
+  TypedData_Get_Struct(self, mmap_t, &amp;mmap_type, mmap);
+  if (!(mmap-&gt;flag &amp; MMAP_RUBY_LOCK)) {
+    return self;
+  }
+  if (munlock(mmap-&gt;addr, mmap-&gt;len) == -1) {
+    rb_raise(rb_eArgError, &quot;munlock(%d)&quot;, errno);
+  }
+  mmap-&gt;flag &amp;= ~MMAP_RUBY_LOCK;
+  return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unmap-instance_method">
+  
+    
+      <span class="overload">#<strong>munmap</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+      <span class="overload">#<strong>unmap</strong>  &#x21d2; <tt>nil</tt> </span>
+    
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Terminates the association between the mapped memory and the file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <p class="tag_title">Overloads:</p>
+  <ul class="overload">
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>munmap</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+      
+      <li class="overload_item">
+        <span class="signature">#<strong>unmap</strong>  &#x21d2; <tt>nil</tt> </span>
+        <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+      </li>
+    
+  </ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2532
+2533
+2534
+2535
+2536
+2537
+2538
+2539
+2540
+2541
+2542
+2543
+2544
+2545
+2546
+2547
+2548
+2549
+2550
+2551
+2552
+2553</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2532</span>
+
+static VALUE
+rb_cMmap_unmap(VALUE self)
+{
+  mmap_t *mmap;
+
+  GET_MMAP(self, mmap, 0);
+  if (mmap-&gt;path) {
+    mmap_lock(mmap, Qtrue);
+    munmap(mmap-&gt;addr, mmap-&gt;len);
+    if (mmap-&gt;path != (char *)(intptr_t)-1) {
+      if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp;
+          mmap-&gt;vscope != MAP_PRIVATE &amp;&amp;
+          truncate(mmap-&gt;path, mmap-&gt;real) == -1) {
+        rb_raise(rb_eTypeError, &quot;truncate&quot;);
+      }
+      free(mmap-&gt;path);
+    }
+    mmap-&gt;path = NULL;
+    mmap_unlock(mmap);
+  }
+  return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="upcase!-instance_method">
+  
+    #<strong>upcase!</strong>  &#x21d2; <tt>self</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Replaces all lowercase characters to uppercase characters in the mapped memory. Returns <code>self</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1601
+1602
+1603
+1604
+1605
+1606
+1607
+1608
+1609
+1610
+1611
+1612
+1613
+1614
+1615
+1616
+1617
+1618
+1619
+1620
+1621
+1622</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1601</span>
+
+static VALUE
+rb_cMmap_upcase_bang(VALUE self)
+{
+  VALUE res;
+  mmap_bang bang_st;
+  mmap_t *mmap;
+
+  bang_st.argc = 0;
+  bang_st.argv = NULL;
+  bang_st.obj = self;
+
+  GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
+  if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
+    mmap_lock(mmap, Qtrue);
+    res = rb_ensure(mmap_upcase_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
+  }
+  else {
+    res = mmap_upcase_bang_int((VALUE)&amp;bang_st);
+  }
+
+  return res;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Fri Jul 18 16:28:21 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.5).
+</div>
+
+    </div>
+  </body>
+</html>
