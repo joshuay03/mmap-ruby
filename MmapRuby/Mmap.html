@@ -1058,7 +1058,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#new (instance method)">#<strong>new</strong>(file, mode = &quot;r&quot;, protection = MmapRuby::MAP_SHARED, options = {})  &#x21d2; Object </a>
+      <a href="#initialize-instance_method" title="#new (instance method)">#<strong>new</strong>(file, mode = &quot;r&quot;, protection = Mmap::MAP_SHARED, options = {})  &#x21d2; Object </a>
     
 
     
@@ -1812,7 +1812,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>new</strong>(file, mode = &quot;r&quot;, protection = MmapRuby::MAP_SHARED, options = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>new</strong>(file, mode = &quot;r&quot;, protection = Mmap::MAP_SHARED, options = {})  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1825,7 +1825,7 @@
 <ul><li>
 <p><code>file</code></p>
 
-<p>Pathname of the file. If <code>nil</code> is given, an anonymous map is created (<code>MmapRuby::MAP_ANON</code>).</p>
+<p>Pathname of the file. If <code>nil</code> is given, an anonymous map is created (<code>Mmap::MAP_ANON</code>).</p>
 </li><li>
 <p><code>mode</code></p>
 
@@ -1835,11 +1835,11 @@
 
 <p>Specifies the nature of the mapping:</p>
 <ul><li>
-<p><code>MmapRuby::MAP_SHARED</code></p>
+<p><code>Mmap::MAP_SHARED</code></p>
 
 <p>Creates a mapping that’s shared with all other processes mapping the same areas of the file. This is the default value.</p>
 </li><li>
-<p><code>MmapRuby::MAP_PRIVATE</code></p>
+<p><code>Mmap::MAP_PRIVATE</code></p>
 
 <p>Creates a private copy-on-write mapping, so changes to the contents of the mmap object will be private to this process.</p>
 </li></ul>
@@ -9820,7 +9820,7 @@ rb_cMmap_upcase_bang(VALUE self)
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 19 02:42:43 2025 by
+  Generated on Sat Jul 19 02:44:46 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>
