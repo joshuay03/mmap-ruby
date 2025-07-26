@@ -54,7 +54,7 @@ File.delete("aa")
 ```
 
 ```
-> bundle execruby example.rb
+> bundle exec ruby example.rb
 true
 true
 true
@@ -107,7 +107,7 @@ loop do
   begin
     line = reader.read_nonblock(3)
     break if line == "zz\n"
-    raise "Expected 'aa', got '#{line}'" unless line == "aa\n"
+    raise "Expected 'aa\n', got '#{line}'" unless line == "aa\n"
   rescue IO::WaitReadable
   end
 end
@@ -118,7 +118,7 @@ t2 = Time.now
 puts "Time taken for IO.pipe: #{t2 - t1} seconds"
 
 file = File.open("example.txt", "w+")
-file.write("\0" * 2_000_002)
+file.write("\0" * 3_000_003)
 file.close
 
 t3 = Time.now
@@ -127,23 +127,23 @@ mmap = Mmap.new(file.path, "rw")
 
 fork do
   1_000_000.times do |i|
-    mmap[i * 2, 2] = "aa"
+    mmap[i * 3, 3] = "aa\n"
   end
-  mmap[2_000_000, 2] = "zz"
+  mmap[3_000_000, 3] = "zz\n"
 end
 
 line = ""
 index = 0
 loop do
-  line = mmap[index, 2]
-  index += 2
+  line = mmap[index, 3]
+  index += 3
 
-  if line == "\0\0"
+  if line == "\0\0\0"
     next
   end
 
-  break if line == "zz"
-  raise "Expected 'aa', got '#{line}'" unless line == "aa"
+  break if line == "zz\n"
+  raise "Expected 'aa\n', got '#{line}'" unless line == "aa\n"
 end
 
 mmap.unmap
@@ -158,8 +158,8 @@ File.delete("example.txt")
 > bundle exec ruby benchmark.rb
 ruby 3.4.5 (2025-07-16 revision 20cda200d3) +YJIT +PRISM [arm64-darwin25]
 mmap-ruby version 0.1.0
-Time taken for IO.pipe: 1.334269 seconds
-Time taken for Mmap: 0.158334 seconds
+Time taken for IO.pipe: 1.336726 seconds
+Time taken for Mmap: 0.15564 seconds
 ```
 
 ## Installation

@@ -73,9 +73,9 @@ typedef struct {
 
 void *(*mmap_func)(void *, size_t, int, int, int, off_t) = mmap;
 
+static VALUE rb_cMmap_index(int argc, VALUE *argv, VALUE self);
 static void mmap_update(mmap_t *str, long beg, long len, VALUE val);
 static void mmap_subpat_set(VALUE obj, VALUE re, int offset, VALUE val);
-static VALUE rb_cMmap_index(int argc, VALUE *argv, VALUE self);
 static void mmap_realloc(mmap_t *mmap, size_t len);
 static void mmap_expandf(mmap_t *mmap, size_t len);
 
