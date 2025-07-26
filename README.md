@@ -53,6 +53,115 @@ p mmap.size == 5 + 2 * PAGESIZE
 File.delete("aa")
 ```
 
+```
+> bundle execruby example.rb
+true
+true
+true
+true
+true
+true
+OK: can't change the size of a fixed map
+true
+true
+true
+true
+true
+true
+true
+true
+```
+
+**Benchmark (Producer-Consumer IPC with validation):**
+
+Tests scenario where one process writes 1M small messages sequentially
+while another process reads and validates each message as it arrives.
+Simulates real-time data processing where consumer must validate each
+item individually without bulk operations or synchronization.
+
+```ruby
+# frozen_string_literal: true
+
+require "mmap-ruby"
+
+puts RUBY_DESCRIPTION
+puts "mmap-ruby version #{MmapRuby::VERSION}"
+
+t1 = Time.now
+
+reader, writer = IO.pipe
+
+fork do
+  reader.close
+  1_000_000.times do
+    writer.write("aa\n")
+  end
+  writer.write("zz\n")
+  writer.close
+end
+
+writer.close
+
+line = ""
+loop do
+  begin
+    line = reader.read_nonblock(3)
+    break if line == "zz\n"
+    raise "Expected 'aa', got '#{line}'" unless line == "aa\n"
+  rescue IO::WaitReadable
+  end
+end
+
+reader.close
+
+t2 = Time.now
+puts "Time taken for IO.pipe: #{t2 - t1} seconds"
+
+file = File.open("example.txt", "w+")
+file.write("\0" * 2_000_002)
+file.close
+
+t3 = Time.now
+
+mmap = Mmap.new(file.path, "rw")
+
+fork do
+  1_000_000.times do |i|
+    mmap[i * 2, 2] = "aa"
+  end
+  mmap[2_000_000, 2] = "zz"
+end
+
+line = ""
+index = 0
+loop do
+  line = mmap[index, 2]
+  index += 2
+
+  if line == "\0\0"
+    next
+  end
+
+  break if line == "zz"
+  raise "Expected 'aa', got '#{line}'" unless line == "aa"
+end
+
+mmap.unmap
+
+t4 = Time.now
+puts "Time taken for Mmap: #{t4 - t3} seconds"
+
+File.delete("example.txt")
+```
+
+```
+> bundle exec ruby benchmark.rb
+ruby 3.4.5 (2025-07-16 revision 20cda200d3) +YJIT +PRISM [arm64-darwin25]
+mmap-ruby version 0.1.0
+Time taken for IO.pipe: 1.334269 seconds
+Time taken for Mmap: 0.158334 seconds
+```
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
