@@ -111,6 +111,24 @@
 <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>aa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
+<pre class="code ruby"><code class="ruby">&gt; bundle execruby example.rb
+true
+true
+true
+true
+true
+true
+OK: can&#39;t change the size of a fixed map
+true
+true
+true
+true
+true
+true
+true
+true
+</code></pre>
+
 <p><strong>Benchmark (Producer-Consumer IPC with validation):</strong></p>
 
 <p>Tests scenario where one process writes 1M small messages sequentially while another process reads and validates each message as it arrives. Simulates real-time data processing where consumer must validate each item individually without bulk operations or synchronization.</p>
@@ -228,7 +246,7 @@ Time taken for Mmap: 0.158334 seconds
 </div></div>
 
       <div id="footer">
-  Generated on Sat Jul 26 03:46:20 2025 by
+  Generated on Sat Jul 26 04:04:18 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>
