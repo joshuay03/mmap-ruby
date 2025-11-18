@@ -1,7 +1,8 @@
-*.gem
-*.bundle
-Gemfile.lock
 .bundle/
 .yardoc/
 doc/
 tmp/
+
+*.bundle
+*.gem
+Gemfile.lock

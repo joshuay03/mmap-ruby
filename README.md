@@ -54,7 +54,7 @@ File.delete("aa")
 ```
 
 ```
-> bundle exec ruby example.rb
+> bundle exec ruby examples/example.rb
 true
 true
 true
@@ -155,7 +155,7 @@ File.delete("example.txt")
 ```
 
 ```
-> bundle exec ruby benchmark.rb
+> bundle exec ruby examples/benchmark.rb
 ruby 3.4.5 (2025-07-16 revision 20cda200d3) +YJIT +PRISM [arm64-darwin25]
 mmap-ruby version 0.1.0
 Time taken for IO.pipe: 1.336726 seconds

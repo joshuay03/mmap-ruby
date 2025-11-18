@@ -32,4 +32,4 @@ jobs:
         run: bundle exec rake
 
       - name: Run example
-        run: bundle exec ruby example.rb
+        run: bundle exec ruby examples/example.rb
