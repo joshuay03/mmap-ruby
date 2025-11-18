@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.1.2] - 2025-11-18
+
 - Standardise directory structure to fix native extension loading
 
 ## [0.1.1] - 2025-11-18
