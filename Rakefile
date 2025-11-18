@@ -9,7 +9,7 @@ GEMSPEC = Gem::Specification.load("mmap-ruby.gemspec")
 Minitest::TestTask.create
 
 Rake::ExtensionTask.new("mmap_ruby", GEMSPEC) do |ext|
-  ext.lib_dir = "lib/mmap-ruby"
+  ext.lib_dir = "lib/mmap_ruby"
 end
 
 task build: :compile
