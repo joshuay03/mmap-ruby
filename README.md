@@ -156,10 +156,10 @@ File.delete("example.txt")
 
 ```
 > bundle exec ruby examples/benchmark.rb
-ruby 3.4.5 (2025-07-16 revision 20cda200d3) +YJIT +PRISM [arm64-darwin25]
+ruby 4.0.0dev (2025-11-10T10:12:35Z master 557eec792e) +YJIT +PRISM [arm64-darwin25]
 mmap-ruby version 0.1.0
-Time taken for IO.pipe: 1.336726 seconds
-Time taken for Mmap: 0.15564 seconds
+Time taken for IO.pipe: 1.215664 seconds
+Time taken for Mmap: 0.139914 seconds
 ```
 
 ## Installation
