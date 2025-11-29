@@ -1,0 +1,23 @@
+steps:
+  - label: ":ruby: Ruby 3.3"
+    image: "ruby:3.3"
+    commands:
+      - bundle install
+      - bundle exec rake
+      - bundle exec ruby examples/example.rb
+
+  - label: ":ruby: Ruby 3.4"
+    image: "ruby:3.3"
+    commands:
+      - bundle install
+      - bundle exec rake
+      - bundle exec ruby examples/example.rb
+
+  - label: ":ruby: Ruby head"
+    image: "rubylang/ruby:master-dev"
+    commands:
+      - apt-get update && apt-get install -y libyaml-dev
+      - bundle install
+      - bundle exec rake
+      - bundle exec ruby examples/example.rb
+    soft_fail: true

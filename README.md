@@ -1,7 +1,7 @@
 # MmapRuby
 
 ![Version](https://img.shields.io/gem/v/mmap-ruby)
-![Build](https://img.shields.io/github/actions/workflow/status/joshuay03/mmap-ruby/.github/workflows/main.yml?branch=main)
+![Build](https://badge.buildkite.com/30e577f244c7ac886e28610c661ad884006ef6b0189fb3cdb7.svg)
 
 [`mmap`](https://en.wikipedia.org/wiki/Mmap) wrapper for Ruby.
 
