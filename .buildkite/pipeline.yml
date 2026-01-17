@@ -7,7 +7,14 @@ steps:
       - bundle exec ruby examples/example.rb
 
   - label: ":ruby: Ruby 3.4"
-    image: "ruby:3.3"
+    image: "ruby:3.4"
+    commands:
+      - bundle install
+      - bundle exec rake
+      - bundle exec ruby examples/example.rb
+
+  - label: ":ruby: Ruby 4.0"
+    image: "ruby:4.0"
     commands:
       - bundle install
       - bundle exec rake
