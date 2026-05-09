@@ -1752,8 +1752,6 @@ the mapped file.</p>
       <pre class="lines">
 
 
-250
-251
 252
 253
 254
@@ -2020,10 +2018,16 @@ the mapped file.</p>
 515
 516
 517
-518</pre>
+518
+519
+520
+521
+522
+523
+524</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 250</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 252</span>
 
 static VALUE
 rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
@@ -2149,6 +2153,7 @@ rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
     }
     if (mmap-&gt;len) size = mmap-&gt;len;
     offset = mmap-&gt;offset;
+    if (!mmap-&gt;len &amp;&amp; offset) size -= offset;
 
     if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
       key_t key;
@@ -2174,13 +2179,16 @@ rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
         mode = 0644;
       }
 
+      char ipc_template[1024];
+      ipc_template[0] = &#39;\0&#39;;
+
       if ((int)mmap-&gt;key &lt;= 0) {
         mode |= IPC_CREAT;
-        strcpy(template, &quot;/tmp/ruby_mmap.XXXXXX&quot;);
-        if (mkstemp(template) == -1) {
+        strcpy(ipc_template, &quot;/tmp/ruby_mmap.XXXXXX&quot;);
+        if (mkstemp(ipc_template) == -1) {
           rb_sys_fail(&quot;mkstemp()&quot;);
         }
-        if ((key = ftok(template, &#39;R&#39;)) == -1) {
+        if ((key = ftok(ipc_template, &#39;R&#39;)) == -1) {
           rb_sys_fail(&quot;ftok()&quot;);
         }
       }
@@ -2214,9 +2222,9 @@ rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
       mmap-&gt;key = key;
       mmap-&gt;semid = semid;
       mmap-&gt;shmid = shmid;
-      if (mmap-&gt;flag &amp; MMAP_RUBY_TMP) {
-        mmap-&gt;template = ALLOC_N(char, strlen(template) + 1);
-        strcpy(mmap-&gt;template, template);
+      if ((mmap-&gt;flag &amp; MMAP_RUBY_TMP) &amp;&amp; ipc_template[0]) {
+        mmap-&gt;template = ALLOC_N(char, strlen(ipc_template) + 1);
+        strcpy(mmap-&gt;template, ipc_template);
       }
     }
   }
@@ -2397,17 +2405,17 @@ pages) or MCL_FUTURE (lock all pages that become mapped in the future).</p>
       <pre class="lines">
 
 
-134
-135
 136
 137
 138
 139
 140
-141</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 134</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 136</span>
 
 static VALUE
 rb_cMmap_mlockall(VALUE self, VALUE flag)
@@ -2513,17 +2521,17 @@ pages) or MCL_FUTURE (lock all pages that become mapped in the future).</p>
       <pre class="lines">
 
 
-134
-135
 136
 137
 138
 139
 140
-141</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 134</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 136</span>
 
 static VALUE
 rb_cMmap_mlockall(VALUE self, VALUE flag)
@@ -2628,18 +2636,18 @@ calling process.</p>
       <pre class="lines">
 
 
-151
-152
 153
 154
 155
 156
 157
 158
-159</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 151</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 153</span>
 
 static VALUE
 rb_cMmap_munlockall(VALUE self)
@@ -2745,18 +2753,18 @@ calling process.</p>
       <pre class="lines">
 
 
-151
-152
 153
 154
 155
 156
 157
 158
-159</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 151</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 153</span>
 
 static VALUE
 rb_cMmap_munlockall(VALUE self)
@@ -2868,22 +2876,22 @@ integer between 0 and 255, it is treated as a byte value. Returns <code>self</co
       <pre class="lines">
 
 
-1294
-1295
-1296
-1297
-1298
-1299
-1300
-1301
-1302
-1303
-1304
-1305
-1306</pre>
+1274
+1275
+1276
+1277
+1278
+1279
+1280
+1281
+1282
+1283
+1284
+1285
+1286</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1294</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1274</span>
 
 static VALUE
 rb_cMmap_concat(VALUE self, VALUE other)
@@ -2953,22 +2961,22 @@ greater than <code>other</code>, or <code>nil</code> if the values are incompara
       <pre class="lines">
 
 
-642
-643
-644
-645
-646
-647
-648
-649
 650
 651
 652
 653
-654</pre>
+654
+655
+656
+657
+658
+659
+660
+661
+662</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 642</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 650</span>
 
 static VALUE
 rb_cMmap_cmp(VALUE self, VALUE other)
@@ -3004,7 +3012,7 @@ rb_cMmap_cmp(VALUE self, VALUE other)
 </h3><div class="docstring">
   <div class="discussion">
     <p>Returns <code>true</code> if the content of the mapped memory is equal to <code>other</code>.
-Compares with other Mmap objects or strings.</p>
+Only compares with other Mmap objects.</p>
 
   </div>
 </div>
@@ -3078,14 +3086,6 @@ Compares with other Mmap objects or strings.</p>
       <pre class="lines">
 
 
-611
-612
-613
-614
-615
-616
-617
-618
 619
 620
 621
@@ -3099,10 +3099,18 @@ Compares with other Mmap objects or strings.</p>
 629
 630
 631
-632</pre>
+632
+633
+634
+635
+636
+637
+638
+639
+640</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 611</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 619</span>
 
 static VALUE
 rb_cMmap_equal(VALUE self, VALUE other)
@@ -3147,7 +3155,7 @@ rb_cMmap_equal(VALUE self, VALUE other)
 </h3><div class="docstring">
   <div class="discussion">
     <p>Returns <code>true</code> if the content of the mapped memory is equal to <code>other</code>.
-Compares with other Mmap objects or strings.</p>
+Only compares with other Mmap objects.</p>
 
   </div>
 </div>
@@ -3221,14 +3229,6 @@ Compares with other Mmap objects or strings.</p>
       <pre class="lines">
 
 
-611
-612
-613
-614
-615
-616
-617
-618
 619
 620
 621
@@ -3242,10 +3242,18 @@ Compares with other Mmap objects or strings.</p>
 629
 630
 631
-632</pre>
+632
+633
+634
+635
+636
+637
+638
+639
+640</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 611</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 619</span>
 
 static VALUE
 rb_cMmap_equal(VALUE self, VALUE other)
@@ -3324,14 +3332,6 @@ String, or any object that responds to <code>=~</code>.</p>
       <pre class="lines">
 
 
-687
-688
-689
-690
-691
-692
-693
-694
 695
 696
 697
@@ -3358,10 +3358,18 @@ String, or any object that responds to <code>=~</code>.</p>
 718
 719
 720
-721</pre>
+721
+722
+723
+724
+725
+726
+727
+728
+729</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 687</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 695</span>
 
 static VALUE
 rb_cMmap_match(VALUE self, VALUE other)
@@ -3684,14 +3692,14 @@ rb_cMmap_match(VALUE self, VALUE other)
       <pre class="lines">
 
 
-924
-925
-926
-927
-928</pre>
+912
+913
+914
+915
+916</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 924</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 912</span>
 
 static VALUE
 rb_cMmap_aref(int argc, VALUE *argv, VALUE self)
@@ -3752,33 +3760,33 @@ rb_cMmap_aref(int argc, VALUE *argv, VALUE self)
       <pre class="lines">
 
 
+1080
+1081
+1082
+1083
+1084
+1085
+1086
+1087
+1088
+1089
+1090
+1091
+1092
+1093
+1094
+1095
+1096
+1097
+1098
+1099
 1100
 1101
 1102
-1103
-1104
-1105
-1106
-1107
-1108
-1109
-1110
-1111
-1112
-1113
-1114
-1115
-1116
-1117
-1118
-1119
-1120
-1121
-1122
-1123</pre>
+1103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1100</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1080</span>
 
 static VALUE
 rb_cMmap_aset(int argc, VALUE *argv, VALUE self)
@@ -3900,21 +3908,21 @@ MADV_NORMAL, MADV_RANDOM, MADV_SEQUENTIAL, MADV_WILLNEED, or MADV_DONTNEED.</p>
       <pre class="lines">
 
 
-2317
-2318
-2319
-2320
-2321
-2322
-2323
-2324
-2325
-2326
-2327
-2328</pre>
+2274
+2275
+2276
+2277
+2278
+2279
+2280
+2281
+2282
+2283
+2284
+2285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2317</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2274</span>
 
 static VALUE
 rb_cMmap_madvise(VALUE self, VALUE advice)
@@ -3982,31 +3990,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1714
+1715
+1716
+1717
+1718
+1719
+1720
+1721
+1722
+1723
+1724
+1725
+1726
+1727
+1728
+1729
 1730
 1731
 1732
 1733
 1734
-1735
-1736
-1737
-1738
-1739
-1740
-1741
-1742
-1743
-1744
-1745
-1746
-1747
-1748
-1749
-1750
-1751</pre>
+1735</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1730</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1714</span>
 
 static VALUE
 rb_cMmap_capitalize_bang(VALUE self)
@@ -4021,7 +4029,7 @@ rb_cMmap_capitalize_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_capitalize_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -4086,22 +4094,22 @@ incomparable.</p>
       <pre class="lines">
 
 
-665
-666
-667
-668
-669
-670
-671
-672
 673
 674
 675
 676
-677</pre>
+677
+678
+679
+680
+681
+682
+683
+684
+685</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 665</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 673</span>
 
 static VALUE
 rb_cMmap_casecmp(VALUE self, VALUE other)
@@ -4170,31 +4178,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+2034
+2035
+2036
+2037
+2038
+2039
+2040
+2041
+2042
+2043
+2044
+2045
+2046
+2047
+2048
+2049
 2050
 2051
 2052
 2053
 2054
-2055
-2056
-2057
-2058
-2059
-2060
-2061
-2062
-2063
-2064
-2065
-2066
-2067
-2068
-2069
-2070
-2071</pre>
+2055</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2050</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2034</span>
 
 static VALUE
 rb_cMmap_chomp_bang(int argc, VALUE *argv, VALUE self)
@@ -4209,7 +4217,7 @@ rb_cMmap_chomp_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_chomp_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -4272,31 +4280,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1936
+1937
+1938
+1939
+1940
+1941
+1942
+1943
+1944
+1945
+1946
+1947
+1948
+1949
+1950
+1951
 1952
 1953
 1954
 1955
 1956
-1957
-1958
-1959
-1960
-1961
-1962
-1963
-1964
-1965
-1966
-1967
-1968
-1969
-1970
-1971
-1972
-1973</pre>
+1957</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1952</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1936</span>
 
 static VALUE
 rb_cMmap_chop_bang(VALUE self)
@@ -4311,7 +4319,7 @@ rb_cMmap_chop_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_chop_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -4467,22 +4475,22 @@ integer between 0 and 255, it is treated as a byte value. Returns <code>self</co
       <pre class="lines">
 
 
-1294
-1295
-1296
-1297
-1298
-1299
-1300
-1301
-1302
-1303
-1304
-1305
-1306</pre>
+1274
+1275
+1276
+1277
+1278
+1279
+1280
+1281
+1282
+1283
+1284
+1285
+1286</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1294</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1274</span>
 
 static VALUE
 rb_cMmap_concat(VALUE self, VALUE other)
@@ -4551,14 +4559,14 @@ Returns the total count.</p>
       <pre class="lines">
 
 
-1204
-1205
-1206
-1207
-1208</pre>
+1184
+1185
+1186
+1187
+1188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1204</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1184</span>
 
 static VALUE
 rb_cMmap_count(int argc, VALUE *argv, VALUE self)
@@ -4619,14 +4627,14 @@ the given <code>salt</code>. Returns the encrypted string.</p>
       <pre class="lines">
 
 
-2241
-2242
-2243
-2244
-2245</pre>
+2198
+2199
+2200
+2201
+2202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2241</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2198</span>
 
 static VALUE
 rb_cMmap_crypt(VALUE self, VALUE salt)
@@ -4687,31 +4695,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+2094
+2095
+2096
+2097
+2098
+2099
+2100
+2101
+2102
+2103
+2104
+2105
+2106
+2107
+2108
+2109
 2110
 2111
 2112
 2113
 2114
-2115
-2116
-2117
-2118
-2119
-2120
-2121
-2122
-2123
-2124
-2125
-2126
-2127
-2128
-2129
-2130
-2131</pre>
+2115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2110</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2094</span>
 
 static VALUE
 rb_cMmap_delete_bang(int argc, VALUE *argv, VALUE self)
@@ -4726,7 +4734,7 @@ rb_cMmap_delete_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_delete_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -4789,31 +4797,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1648
+1649
+1650
+1651
+1652
+1653
+1654
+1655
+1656
+1657
+1658
+1659
+1660
+1661
+1662
+1663
 1664
 1665
 1666
 1667
 1668
-1669
-1670
-1671
-1672
-1673
-1674
-1675
-1676
-1677
-1678
-1679
-1680
-1681
-1682
-1683
-1684
-1685</pre>
+1669</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1664</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1648</span>
 
 static VALUE
 rb_cMmap_downcase_bang(VALUE self)
@@ -4828,7 +4836,7 @@ rb_cMmap_downcase_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_downcase_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -5024,18 +5032,18 @@ rb_cMmap_downcase_bang(VALUE self)
       <pre class="lines">
 
 
-885
-886
-887
-888
-889
-890
-891
-892
-893</pre>
+873
+874
+875
+876
+877
+878
+879
+880
+881</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 885</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 873</span>
 
 static VALUE
 rb_cMmap_empty(VALUE self)
@@ -5100,14 +5108,6 @@ Unlike <code>==</code>, this method only returns <code>true</code> for other Mma
       <pre class="lines">
 
 
-585
-586
-587
-588
-589
-590
-591
-592
 593
 594
 595
@@ -5116,10 +5116,18 @@ Unlike <code>==</code>, this method only returns <code>true</code> for other Mma
 598
 599
 600
-601</pre>
+601
+602
+603
+604
+605
+606
+607
+608
+609</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 585</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 593</span>
 
 static VALUE
 rb_cMmap_eql(VALUE self, VALUE other)
@@ -5192,22 +5200,22 @@ Returns the new size of the mapped memory.</p>
       <pre class="lines">
 
 
-2515
-2516
-2517
-2518
-2519
-2520
-2521
-2522
-2523
-2524
-2525
-2526
-2527</pre>
+2473
+2474
+2475
+2476
+2477
+2478
+2479
+2480
+2481
+2482
+2483
+2484
+2485</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2515</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2473</span>
 
 static VALUE
 rb_cMmap_extend(VALUE self, VALUE count)
@@ -5348,33 +5356,33 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2432
-2433
-2434
-2435
-2436
-2437
-2438
-2439
-2440
-2441
-2442
-2443
-2444
-2445
-2446
-2447
-2448
-2449
-2450
-2451
-2452
-2453
-2454
-2455</pre>
+2390
+2391
+2392
+2393
+2394
+2395
+2396
+2397
+2398
+2399
+2400
+2401
+2402
+2403
+2404
+2405
+2406
+2407
+2408
+2409
+2410
+2411
+2412
+2413</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2432</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2390</span>
 
 static VALUE
 rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
@@ -5508,31 +5516,31 @@ substitutions were made, or <code>nil</code> if no substitutions occurred.</p>
       <pre class="lines">
 
 
+1530
+1531
+1532
+1533
+1534
+1535
+1536
+1537
+1538
+1539
+1540
+1541
+1542
+1543
+1544
+1545
 1546
 1547
 1548
 1549
 1550
-1551
-1552
-1553
-1554
-1555
-1556
-1557
-1558
-1559
-1560
-1561
-1562
-1563
-1564
-1565
-1566
-1567</pre>
+1551</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1546</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1530</span>
 
 static VALUE
 rb_cMmap_gsub_bang(int argc, VALUE *argv, VALUE self)
@@ -5547,7 +5555,7 @@ rb_cMmap_gsub_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_gsub_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -5610,20 +5618,20 @@ same content will have the same hash value.</p>
       <pre class="lines">
 
 
-566
-567
-568
-569
-570
-571
-572
-573
 574
 575
-576</pre>
+576
+577
+578
+579
+580
+581
+582
+583
+584</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 566</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 574</span>
 
 static VALUE
 rb_cMmap_hash(VALUE self)
@@ -5690,14 +5698,14 @@ The <code>other</code> parameter can be a string or regular expression.</p>
       <pre class="lines">
 
 
-1165
-1166
-1167
-1168
-1169</pre>
+1145
+1146
+1147
+1148
+1149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1165</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1145</span>
 
 static VALUE
 rb_cMmap_include(VALUE self, VALUE other)
@@ -5798,14 +5806,14 @@ rb_cMmap_include(VALUE self, VALUE other)
       <pre class="lines">
 
 
-1178
-1179
-1180
-1181
-1182</pre>
+1158
+1159
+1160
+1161
+1162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1178</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1158</span>
 
 static VALUE
 rb_cMmap_index(int argc, VALUE *argv, VALUE self)
@@ -5865,25 +5873,25 @@ rb_cMmap_index(int argc, VALUE *argv, VALUE self)
       <pre class="lines">
 
 
-1228
-1229
-1230
-1231
-1232
-1233
-1234
-1235
-1236
-1237
-1238
-1239
-1240
-1241
-1242
-1243</pre>
+1208
+1209
+1210
+1211
+1212
+1213
+1214
+1215
+1216
+1217
+1218
+1219
+1220
+1221
+1222
+1223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1228</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1208</span>
 
 static VALUE
 rb_cMmap_insert(VALUE self, VALUE idx, VALUE str)
@@ -5954,20 +5962,20 @@ rb_cMmap_insert(VALUE self, VALUE idx, VALUE str)
       <pre class="lines">
 
 
-2593
-2594
-2595
-2596
-2597
-2598
-2599
-2600
-2601
-2602
-2603</pre>
+2550
+2551
+2552
+2553
+2554
+2555
+2556
+2557
+2558
+2559
+2560</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2593</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2550</span>
 
 static VALUE
 rb_cMmap_ipc_key(VALUE self)
@@ -6074,17 +6082,17 @@ rb_cMmap_ipc_key(VALUE self)
       <pre class="lines">
 
 
-870
-871
-872
-873
-874
-875
-876
-877</pre>
+858
+859
+860
+861
+862
+863
+864
+865</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 870</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 858</span>
 
 static VALUE
 rb_cMmap_size(VALUE self)
@@ -6189,27 +6197,27 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2465
-2466
-2467
-2468
-2469
-2470
-2471
-2472
-2473
-2474
-2475
-2476
-2477
-2478
-2479
-2480
-2481
-2482</pre>
+2423
+2424
+2425
+2426
+2427
+2428
+2429
+2430
+2431
+2432
+2433
+2434
+2435
+2436
+2437
+2438
+2439
+2440</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2465</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2423</span>
 
 static VALUE
 rb_cMmap_mlock(VALUE self)
@@ -6325,21 +6333,21 @@ MADV_NORMAL, MADV_RANDOM, MADV_SEQUENTIAL, MADV_WILLNEED, or MADV_DONTNEED.</p>
       <pre class="lines">
 
 
-2317
-2318
-2319
-2320
-2321
-2322
-2323
-2324
-2325
-2326
-2327
-2328</pre>
+2274
+2275
+2276
+2277
+2278
+2279
+2280
+2281
+2282
+2283
+2284
+2285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2317</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2274</span>
 
 static VALUE
 rb_cMmap_madvise(VALUE self, VALUE advice)
@@ -6408,14 +6416,14 @@ This is equivalent to calling <code>pattern.match</code> on the mapped memory co
       <pre class="lines">
 
 
-857
-858
-859
-860
-861</pre>
+845
+846
+847
+848
+849</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 857</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 845</span>
 
 static VALUE
 rb_cMmap_match_m(VALUE self, VALUE pattern)
@@ -6517,27 +6525,27 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2465
-2466
-2467
-2468
-2469
-2470
-2471
-2472
-2473
-2474
-2475
-2476
-2477
-2478
-2479
-2480
-2481
-2482</pre>
+2423
+2424
+2425
+2426
+2427
+2428
+2429
+2430
+2431
+2432
+2433
+2434
+2435
+2436
+2437
+2438
+2439
+2440</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2465</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2423</span>
 
 static VALUE
 rb_cMmap_mlock(VALUE self)
@@ -6652,6 +6660,49 @@ or an integer representing protection flags. Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+2212
+2213
+2214
+2215
+2216
+2217
+2218
+2219
+2220
+2221
+2222
+2223
+2224
+2225
+2226
+2227
+2228
+2229
+2230
+2231
+2232
+2233
+2234
+2235
+2236
+2237
+2238
+2239
+2240
+2241
+2242
+2243
+2244
+2245
+2246
+2247
+2248
+2249
+2250
+2251
+2252
+2253
+2254
 2255
 2256
 2257
@@ -6660,53 +6711,10 @@ or an integer representing protection flags. Returns <code>self</code>.</p>
 2260
 2261
 2262
-2263
-2264
-2265
-2266
-2267
-2268
-2269
-2270
-2271
-2272
-2273
-2274
-2275
-2276
-2277
-2278
-2279
-2280
-2281
-2282
-2283
-2284
-2285
-2286
-2287
-2288
-2289
-2290
-2291
-2292
-2293
-2294
-2295
-2296
-2297
-2298
-2299
-2300
-2301
-2302
-2303
-2304
-2305
-2306</pre>
+2263</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2255</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2212</span>
 
 static VALUE
 rb_cMmap_mprotect(VALUE self, VALUE mode)
@@ -6886,33 +6894,33 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2432
-2433
-2434
-2435
-2436
-2437
-2438
-2439
-2440
-2441
-2442
-2443
-2444
-2445
-2446
-2447
-2448
-2449
-2450
-2451
-2452
-2453
-2454
-2455</pre>
+2390
+2391
+2392
+2393
+2394
+2395
+2396
+2397
+2398
+2399
+2400
+2401
+2402
+2403
+2404
+2405
+2406
+2407
+2408
+2409
+2410
+2411
+2412
+2413</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2432</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2390</span>
 
 static VALUE
 rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
@@ -7033,24 +7041,24 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2492
-2493
-2494
-2495
-2496
-2497
-2498
-2499
-2500
-2501
-2502
-2503
-2504
-2505
-2506</pre>
+2450
+2451
+2452
+2453
+2454
+2455
+2456
+2457
+2458
+2459
+2460
+2461
+2462
+2463
+2464</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2492</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2450</span>
 
 static VALUE
 rb_cMmap_munlock(VALUE self)
@@ -7161,31 +7169,30 @@ rb_cMmap_munlock(VALUE self)
       <pre class="lines">
 
 
-2536
-2537
-2538
-2539
-2540
-2541
-2542
-2543
-2544
-2545
-2546
-2547
-2548
-2549
-2550
-2551
-2552
-2553
-2554
-2555
-2556
-2557</pre>
+2494
+2495
+2496
+2497
+2498
+2499
+2500
+2501
+2502
+2503
+2504
+2505
+2506
+2507
+2508
+2509
+2510
+2511
+2512
+2513
+2514</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2536</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2494</span>
 
 static VALUE
 rb_cMmap_unmap(VALUE self)
@@ -7193,20 +7200,19 @@ rb_cMmap_unmap(VALUE self)
   mmap_t *mmap;
 
   GET_MMAP(self, mmap, 0);
-  if (mmap-&gt;path) {
-    mmap_lock(mmap, Qtrue);
-    munmap(mmap-&gt;addr, mmap-&gt;len);
-    if (mmap-&gt;path != (char *)(intptr_t)-1) {
-      if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp;
-          mmap-&gt;vscope != MAP_PRIVATE &amp;&amp;
-          truncate(mmap-&gt;path, mmap-&gt;real) == -1) {
-        rb_raise(rb_eTypeError, &quot;truncate&quot;);
-      }
-      free(mmap-&gt;path);
+  mmap_lock(mmap, 1);
+  munmap(mmap-&gt;addr, mmap-&gt;len);
+  mmap-&gt;addr = NULL;
+  if (mmap-&gt;path != (char *)(intptr_t)-1) {
+    if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp;
+        mmap-&gt;vscope != MAP_PRIVATE &amp;&amp;
+        truncate(mmap-&gt;path, mmap-&gt;real) == -1) {
+      rb_raise(rb_eTypeError, &quot;truncate&quot;);
     }
-    mmap-&gt;path = NULL;
-    mmap_unlock(mmap);
+    free(mmap-&gt;path);
   }
+  mmap-&gt;path = NULL;
+  mmap_unlock(mmap);
   return Qnil;
 }</pre>
     </td>
@@ -7304,6 +7310,49 @@ or an integer representing protection flags. Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+2212
+2213
+2214
+2215
+2216
+2217
+2218
+2219
+2220
+2221
+2222
+2223
+2224
+2225
+2226
+2227
+2228
+2229
+2230
+2231
+2232
+2233
+2234
+2235
+2236
+2237
+2238
+2239
+2240
+2241
+2242
+2243
+2244
+2245
+2246
+2247
+2248
+2249
+2250
+2251
+2252
+2253
+2254
 2255
 2256
 2257
@@ -7312,53 +7361,10 @@ or an integer representing protection flags. Returns <code>self</code>.</p>
 2260
 2261
 2262
-2263
-2264
-2265
-2266
-2267
-2268
-2269
-2270
-2271
-2272
-2273
-2274
-2275
-2276
-2277
-2278
-2279
-2280
-2281
-2282
-2283
-2284
-2285
-2286
-2287
-2288
-2289
-2290
-2291
-2292
-2293
-2294
-2295
-2296
-2297
-2298
-2299
-2300
-2301
-2302
-2303
-2304
-2305
-2306</pre>
+2263</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2255</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2212</span>
 
 static VALUE
 rb_cMmap_mprotect(VALUE self, VALUE mode)
@@ -7466,31 +7472,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1834
+1835
+1836
+1837
+1838
+1839
+1840
+1841
+1842
+1843
+1844
+1845
+1846
+1847
+1848
+1849
 1850
 1851
 1852
 1853
 1854
-1855
-1856
-1857
-1858
-1859
-1860
-1861
-1862
-1863
-1864
-1865
-1866
-1867
-1868
-1869
-1870
-1871</pre>
+1855</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1850</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1834</span>
 
 static VALUE
 rb_cMmap_reverse_bang(VALUE self)
@@ -7505,7 +7511,7 @@ rb_cMmap_reverse_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_reverse_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -7608,14 +7614,14 @@ rb_cMmap_reverse_bang(VALUE self)
       <pre class="lines">
 
 
-1191
-1192
-1193
-1194
-1195</pre>
+1171
+1172
+1173
+1174
+1175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1191</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1171</span>
 
 static VALUE
 rb_cMmap_rindex(int argc, VALUE *argv, VALUE self)
@@ -7714,37 +7720,37 @@ rb_cMmap_rindex(int argc, VALUE *argv, VALUE self)
       <pre class="lines">
 
 
-2565
-2566
-2567
-2568
-2569
-2570
-2571
-2572
-2573
-2574
-2575
-2576
-2577
-2578
-2579
-2580
-2581
-2582
-2583
-2584
-2585</pre>
+2522
+2523
+2524
+2525
+2526
+2527
+2528
+2529
+2530
+2531
+2532
+2533
+2534
+2535
+2536
+2537
+2538
+2539
+2540
+2541
+2542</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2565</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2522</span>
 
 static VALUE
 rb_cMmap_semlock(int argc, VALUE *argv, VALUE self)
 {
   mmap_t *mmap;
   VALUE a;
-  int wait_lock = Qtrue;
+  int wait_lock = 1;
 
   GET_MMAP(self, mmap, 0);
   if (!(mmap-&gt;flag &amp; MMAP_RUBY_IPC)) {
@@ -7854,17 +7860,17 @@ rb_cMmap_semlock(int argc, VALUE *argv, VALUE self)
       <pre class="lines">
 
 
-870
-871
-872
-873
-874
-875
-876
-877</pre>
+858
+859
+860
+861
+862
+863
+864
+865</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 870</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 858</span>
 
 static VALUE
 rb_cMmap_size(VALUE self)
@@ -8160,14 +8166,14 @@ rb_cMmap_size(VALUE self)
       <pre class="lines">
 
 
-924
-925
-926
-927
-928</pre>
+912
+913
+914
+915
+916</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 924</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 912</span>
 
 static VALUE
 rb_cMmap_aref(int argc, VALUE *argv, VALUE self)
@@ -8329,31 +8335,31 @@ Returns <code>nil</code> if the portion is not found.</p>
       <pre class="lines">
 
 
+1115
+1116
+1117
+1118
+1119
+1120
+1121
+1122
+1123
+1124
+1125
+1126
+1127
+1128
+1129
+1130
+1131
+1132
+1133
+1134
 1135
-1136
-1137
-1138
-1139
-1140
-1141
-1142
-1143
-1144
-1145
-1146
-1147
-1148
-1149
-1150
-1151
-1152
-1153
-1154
-1155
-1156</pre>
+1136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1135</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1115</span>
 
 static VALUE
 rb_cMmap_slice_bang(int argc, VALUE *argv, VALUE self)
@@ -8432,14 +8438,14 @@ The <code>limit</code> parameter controls the number of splits.</p>
       <pre class="lines">
 
 
-2228
-2229
-2230
-2231
-2232</pre>
+2185
+2186
+2187
+2188
+2189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2228</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2185</span>
 
 static VALUE
 rb_cMmap_split(int argc, VALUE *argv, VALUE self)
@@ -8500,31 +8506,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2197
-2198
-2199
-2200
-2201
-2202
-2203
-2204
-2205
-2206
-2207
-2208
-2209
-2210
-2211
-2212
-2213
-2214
-2215
-2216
-2217
-2218</pre>
+2154
+2155
+2156
+2157
+2158
+2159
+2160
+2161
+2162
+2163
+2164
+2165
+2166
+2167
+2168
+2169
+2170
+2171
+2172
+2173
+2174
+2175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2197</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2154</span>
 
 static VALUE
 rb_cMmap_squeeze_bang(int argc, VALUE *argv, VALUE self)
@@ -8539,7 +8545,7 @@ rb_cMmap_squeeze_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_squeeze_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -8602,6 +8608,22 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1864
+1865
+1866
+1867
+1868
+1869
+1870
+1871
+1872
+1873
+1874
+1875
+1876
+1877
+1878
+1879
 1880
 1881
 1882
@@ -8618,26 +8640,10 @@ Returns <code>self</code>.</p>
 1893
 1894
 1895
-1896
-1897
-1898
-1899
-1900
-1901
-1902
-1903
-1904
-1905
-1906
-1907
-1908
-1909
-1910
-1911
-1912</pre>
+1896</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1880</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1864</span>
 
 static VALUE
 rb_cMmap_strip_bang(VALUE self)
@@ -8646,7 +8652,7 @@ rb_cMmap_strip_bang(VALUE self)
   mmap_t *mmap;
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
-  mmap_lock(mmap, Qtrue);
+  mmap_lock(mmap, 1);
   s = (char *)mmap-&gt;addr;
   e = t = s + mmap-&gt;real;
   while (s &lt; t &amp;&amp; ISSPACE(*s)) s++;
@@ -8780,31 +8786,31 @@ was made, or <code>nil</code> if no substitution occurred.</p>
       <pre class="lines">
 
 
+1412
+1413
+1414
+1415
+1416
+1417
+1418
+1419
+1420
+1421
+1422
+1423
+1424
+1425
+1426
+1427
 1428
 1429
 1430
 1431
 1432
-1433
-1434
-1435
-1436
-1437
-1438
-1439
-1440
-1441
-1442
-1443
-1444
-1445
-1446
-1447
-1448
-1449</pre>
+1433</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1428</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1412</span>
 
 static VALUE
 rb_cMmap_sub_bang(int argc, VALUE *argv, VALUE self)
@@ -8819,7 +8825,7 @@ rb_cMmap_sub_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_sub_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -8881,14 +8887,14 @@ rb_cMmap_sub_bang(int argc, VALUE *argv, VALUE self)
       <pre class="lines">
 
 
-1216
-1217
-1218
-1219
-1220</pre>
+1196
+1197
+1198
+1199
+1200</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1216</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1196</span>
 
 static VALUE
 rb_cMmap_sum(int argc, VALUE *argv, VALUE self)
@@ -8949,31 +8955,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1776
+1777
+1778
+1779
+1780
+1781
+1782
+1783
+1784
+1785
+1786
+1787
+1788
+1789
+1790
+1791
 1792
 1793
 1794
 1795
 1796
-1797
-1798
-1799
-1800
-1801
-1802
-1803
-1804
-1805
-1806
-1807
-1808
-1809
-1810
-1811
-1812
-1813</pre>
+1797</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1792</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1776</span>
 
 static VALUE
 rb_cMmap_swapcase_bang(VALUE self)
@@ -8988,7 +8994,7 @@ rb_cMmap_swapcase_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_swapcase_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -9123,33 +9129,33 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2432
-2433
-2434
-2435
-2436
-2437
-2438
-2439
-2440
-2441
-2442
-2443
-2444
-2445
-2446
-2447
-2448
-2449
-2450
-2451
-2452
-2453
-2454
-2455</pre>
+2390
+2391
+2392
+2393
+2394
+2395
+2396
+2397
+2398
+2399
+2400
+2401
+2402
+2403
+2404
+2405
+2406
+2407
+2408
+2409
+2410
+2411
+2412
+2413</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2432</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2390</span>
 
 static VALUE
 rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
@@ -9206,14 +9212,14 @@ rb_cMmap_msync(int argc, VALUE *argv, VALUE self)
       <pre class="lines">
 
 
-553
-554
-555
-556
-557</pre>
+561
+562
+563
+564
+565</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 553</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 561</span>
 
 static VALUE
 rb_cMmap_to_str(VALUE self)
@@ -9315,24 +9321,24 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
-2492
-2493
-2494
-2495
-2496
-2497
-2498
-2499
-2500
-2501
-2502
-2503
-2504
-2505
-2506</pre>
+2450
+2451
+2452
+2453
+2454
+2455
+2456
+2457
+2458
+2459
+2460
+2461
+2462
+2463
+2464</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2492</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2450</span>
 
 static VALUE
 rb_cMmap_munlock(VALUE self)
@@ -9443,31 +9449,30 @@ rb_cMmap_munlock(VALUE self)
       <pre class="lines">
 
 
-2536
-2537
-2538
-2539
-2540
-2541
-2542
-2543
-2544
-2545
-2546
-2547
-2548
-2549
-2550
-2551
-2552
-2553
-2554
-2555
-2556
-2557</pre>
+2494
+2495
+2496
+2497
+2498
+2499
+2500
+2501
+2502
+2503
+2504
+2505
+2506
+2507
+2508
+2509
+2510
+2511
+2512
+2513
+2514</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2536</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 2494</span>
 
 static VALUE
 rb_cMmap_unmap(VALUE self)
@@ -9475,20 +9480,19 @@ rb_cMmap_unmap(VALUE self)
   mmap_t *mmap;
 
   GET_MMAP(self, mmap, 0);
-  if (mmap-&gt;path) {
-    mmap_lock(mmap, Qtrue);
-    munmap(mmap-&gt;addr, mmap-&gt;len);
-    if (mmap-&gt;path != (char *)(intptr_t)-1) {
-      if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp;
-          mmap-&gt;vscope != MAP_PRIVATE &amp;&amp;
-          truncate(mmap-&gt;path, mmap-&gt;real) == -1) {
-        rb_raise(rb_eTypeError, &quot;truncate&quot;);
-      }
-      free(mmap-&gt;path);
+  mmap_lock(mmap, 1);
+  munmap(mmap-&gt;addr, mmap-&gt;len);
+  mmap-&gt;addr = NULL;
+  if (mmap-&gt;path != (char *)(intptr_t)-1) {
+    if (mmap-&gt;real &lt; mmap-&gt;len &amp;&amp;
+        mmap-&gt;vscope != MAP_PRIVATE &amp;&amp;
+        truncate(mmap-&gt;path, mmap-&gt;real) == -1) {
+      rb_raise(rb_eTypeError, &quot;truncate&quot;);
     }
-    mmap-&gt;path = NULL;
-    mmap_unlock(mmap);
+    free(mmap-&gt;path);
   }
+  mmap-&gt;path = NULL;
+  mmap_unlock(mmap);
   return Qnil;
 }</pre>
     </td>
@@ -9545,31 +9549,31 @@ Returns <code>self</code>.</p>
       <pre class="lines">
 
 
+1589
+1590
+1591
+1592
+1593
+1594
+1595
+1596
+1597
+1598
+1599
+1600
+1601
+1602
+1603
+1604
 1605
 1606
 1607
 1608
 1609
-1610
-1611
-1612
-1613
-1614
-1615
-1616
-1617
-1618
-1619
-1620
-1621
-1622
-1623
-1624
-1625
-1626</pre>
+1610</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1605</span>
+      <pre class="code"><span class="info file"># File 'ext/mmap_ruby/mmap_ruby.c', line 1589</span>
 
 static VALUE
 rb_cMmap_upcase_bang(VALUE self)
@@ -9584,7 +9588,7 @@ rb_cMmap_upcase_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap-&gt;flag &amp; MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_upcase_bang_int, (VALUE)&amp;bang_st, mmap_vunlock, self);
   }
   else {
@@ -9603,7 +9607,7 @@ rb_cMmap_upcase_bang(VALUE self)
 </div>
 
       <div id="footer">
-  Generated on Sat May  9 10:46:05 2026 by
+  Generated on Sat May  9 11:05:57 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.43 (ruby-4.1.0).
 </div>
