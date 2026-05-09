@@ -198,10 +198,10 @@ class TestMmap < Minitest::Test
 
   def test_reg
     assert_equal(@str.scan(/include/), @mmap.scan(/include/), "<scan>")
-    assert_equal(@mmap.index("rb_raise"), @mmap.index("rb_raise"), "<index>")
-    assert_equal(@mmap.rindex("rb_raise"), @mmap.rindex("rb_raise"), "<rindex>")
-    assert_equal(@mmap.index(/rb_raise/), @mmap.index(/rb_raise/), "<index>")
-    assert_equal(@mmap.rindex(/rb_raise/), @mmap.rindex(/rb_raise/), "<rindex>")
+    assert_equal(@str.index("rb_raise"), @mmap.index("rb_raise"), "<index>")
+    assert_equal(@str.rindex("rb_raise"), @mmap.rindex("rb_raise"), "<rindex>")
+    assert_equal(@str.index(/rb_raise/), @mmap.index(/rb_raise/), "<index>")
+    assert_equal(@str.rindex(/rb_raise/), @mmap.rindex(/rb_raise/), "<rindex>")
     ("a".."z").each do |i|
       assert_equal(@mmap.index(i), @str.index(i), "<index>")
       assert_equal(@mmap.rindex(i), @str.rindex(i), "<rindex>")
@@ -220,10 +220,6 @@ class TestMmap < Minitest::Test
     assert_equal(@mmap.split(/\w+/), @str.split(/\w+/), "<split>")
     assert_equal(@mmap.split(/\W+/), @str.split(/\W+/), "<split>")
     assert_equal(@mmap.crypt("abc"), @str.crypt("abc"), "<crypt>")
-  end
-
-  def test_easy_sub!
-    assert_equal(@mmap.index("rb_raise"), @mmap.index("rb_raise"), "<index>")
   end
 
   def test_modify
@@ -282,6 +278,78 @@ class TestMmap < Minitest::Test
     mmap0.scan(/./) { |c| assert_equal(c, string[i, 1], "scan"); i += 1 }
     assert_nil(mmap0.munmap, "munmap")
     assert_nil(mmap1.munmap, "munmap")
+  end
+
+  def test_size
+    assert_equal @str.size, @mmap.size
+    assert_equal @str.length, @mmap.length
+  end
+
+  def test_to_str
+    assert_equal @str, @mmap.to_str
+  end
+
+  def test_cmp
+    assert_equal 0, @mmap <=> @str
+    assert_equal(-1, @mmap <=> (@str + "z"))
+    assert_equal 1, @mmap <=> @str[0..-2]
+  end
+
+  def test_offset
+    page_size = `getconf PAGESIZE`.to_i
+    mmap = Mmap.new(@mmap_c, "r", offset: page_size)
+    assert_equal @str[page_size..], mmap.to_str
+    mmap.unmap
+  end
+
+  def test_squeeze_bang_with_arg
+    @str.squeeze!(" ")
+    @mmap.squeeze!(" ")
+    assert_equal @str, @mmap.to_str
+  end
+
+  def test_squeeze_bang_with_range_arg
+    @str.squeeze!("a-z")
+    @mmap.squeeze!("a-z")
+    assert_equal @str, @mmap.to_str
+  end
+
+  def test_chomp_bang_with_separator
+    path = File.join(@tmp, "chomp_test")
+    File.write(path, "hello|")
+    mmap = Mmap.new(path, "rw")
+    mmap.chomp!("|")
+    assert_equal "hello", mmap.to_str
+    mmap.unmap
+    FileUtils.rm(path)
+  end
+
+  def test_sub_bang_size_mismatch_on_fixed_map
+    mmap = Mmap.new(nil, length: 16, initialize: "a")
+    assert_raises(TypeError) { mmap.sub!(/a/, "bb") }
+    mmap.unmap
+  end
+
+  def test_sub_bang_growing_replacement
+    @str.sub!(/GetMmap/, "GetMmapRuby")
+    @mmap.sub!(/GetMmap/, "GetMmapRuby")
+    assert_equal @str, @mmap.to_str
+  end
+
+  def test_ipc_key
+    assert_equal(-1, @mmap.ipc_key)
+  end
+
+  def test_msync_with_flags
+    assert_equal @mmap, @mmap.msync(Mmap::MS_ASYNC)
+    assert_equal @mmap, @mmap.msync(Mmap::MS_SYNC)
+  end
+
+  def test_mprotect_numeric
+    assert_equal @mmap, @mmap.protect(Mmap::PROT_READ | Mmap::PROT_WRITE)
+    @str[12] = "a"
+    @mmap[12] = "a"
+    assert_equal @str, @mmap.to_str
   end
 
   def test_protect

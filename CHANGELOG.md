@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+- Fix `sub!` and `gsub!` to expand the backing file when the replacement grows the string
+- Improve test coverage and fix incorrect test assertions
+- Fix `squeeze!` to support Ruby string range notation by delegating to `String#squeeze!`
+- Remove dead code and fix `mmap_lock` type safety
+- Fix memory management, initialisation, and mutation bugs in C extension
+
 ## [0.1.2] - 2025-11-18
 
 - Standardise directory structure to fix native extension loading

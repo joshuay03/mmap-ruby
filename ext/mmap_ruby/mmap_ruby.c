@@ -4,8 +4,6 @@
 
 #define MMAP_RUBY_MODIFY  1
 #define MMAP_RUBY_ORIGIN  2
-#define MMAP_RUBY_CHANGE  (MMAP_RUBY_MODIFY | 4)
-#define MMAP_RUBY_PROTECT 8
 
 #define MMAP_RUBY_FIXED (1<<1)
 #define MMAP_RUBY_ANON  (1<<2)
@@ -21,8 +19,6 @@
   if (t_modify & MMAP_RUBY_MODIFY) { \
     rb_check_frozen(self); \
   }
-
-static char template[1024];
 
 #if defined(__linux__) || defined(__GNU__) || defined(__GLIBC__)
 union semun
@@ -92,6 +88,12 @@ mmap_free(void *ptr)
 {
   mmap_t *mmap = (mmap_t *)ptr;
 
+  if (mmap->addr && mmap->addr != MAP_FAILED) {
+    munmap(mmap->addr, mmap->len);
+  }
+  if (mmap->path && mmap->path != (char *)(intptr_t)-1) {
+    free(mmap->path);
+  }
   xfree(mmap);
 }
 
@@ -371,6 +373,7 @@ rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
     }
     if (mmap->len) size = mmap->len;
     offset = mmap->offset;
+    if (!mmap->len && offset) size -= offset;
 
     if (mmap->flag & MMAP_RUBY_IPC) {
       key_t key;
@@ -396,13 +399,16 @@ rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
         mode = 0644;
       }
 
+      char ipc_template[1024];
+      ipc_template[0] = '\0';
+
       if ((int)mmap->key <= 0) {
         mode |= IPC_CREAT;
-        strcpy(template, "/tmp/ruby_mmap.XXXXXX");
-        if (mkstemp(template) == -1) {
+        strcpy(ipc_template, "/tmp/ruby_mmap.XXXXXX");
+        if (mkstemp(ipc_template) == -1) {
           rb_sys_fail("mkstemp()");
         }
-        if ((key = ftok(template, 'R')) == -1) {
+        if ((key = ftok(ipc_template, 'R')) == -1) {
           rb_sys_fail("ftok()");
         }
       }
@@ -436,9 +442,9 @@ rb_cMmap_initialize(int argc, VALUE *argv, VALUE self)
       mmap->key = key;
       mmap->semid = semid;
       mmap->shmid = shmid;
-      if (mmap->flag & MMAP_RUBY_TMP) {
-        mmap->template = ALLOC_N(char, strlen(template) + 1);
-        strcpy(mmap->template, template);
+      if ((mmap->flag & MMAP_RUBY_TMP) && ipc_template[0]) {
+        mmap->template = ALLOC_N(char, strlen(ipc_template) + 1);
+        strcpy(mmap->template, ipc_template);
       }
     }
   }
@@ -530,11 +536,13 @@ mmap_str(VALUE self, int modify)
   VALUE string = rb_obj_alloc(rb_cString);
   RSTRING(string)->len = mmap->real;
   RSTRING(string)->as.heap.ptr = mmap->addr;
-  RSTRING(string)->as.heap.aux.capa = mmap->len;
+  FL_SET(string, RSTRING_NOEMBED);
   if (modify & MMAP_RUBY_ORIGIN) {
     RSTRING(string)->as.heap.aux.shared = self;
-    FL_SET(string, RSTRING_NOEMBED);
     FL_SET(string, FL_USER18);
+  }
+  else {
+    RSTRING(string)->as.heap.aux.capa = mmap->len;
   }
 
   if (RB_OBJ_FROZEN(self)) {
@@ -606,7 +614,7 @@ rb_cMmap_eql(VALUE self, VALUE other)
  *   ===(other) -> true or false
  *
  * Returns +true+ if the content of the mapped memory is equal to +other+.
- * Compares with other Mmap objects or strings.
+ * Only compares with other Mmap objects.
  */
 static VALUE
 rb_cMmap_equal(VALUE self, VALUE other)
@@ -721,14 +729,6 @@ rb_cMmap_match(VALUE self, VALUE other)
 }
 
 static VALUE
-mmap_bang_protect(VALUE tmp)
-{
-  VALUE *t = (VALUE *)tmp;
-
-  return rb_funcall2(t[0], (ID)t[1], (int)t[2], (VALUE *)t[3]);
-}
-
-static VALUE
 mmap_bang_exec(VALUE data)
 {
   mmap_bang *bang_st = (mmap_bang *)data;
@@ -736,24 +736,15 @@ mmap_bang_exec(VALUE data)
   mmap_t *mmap;
 
   str = mmap_str(bang_st->obj, (int)bang_st->flag);
-  if (bang_st->flag & MMAP_RUBY_PROTECT) {
-    VALUE tmp[4];
-    tmp[0] = str;
-    tmp[1] = (VALUE)bang_st->id;
-    tmp[2] = (VALUE)bang_st->argc;
-    tmp[3] = (VALUE)bang_st->argv;
-    res = rb_ensure(mmap_bang_protect, (VALUE)tmp, 0, str);
-  }
-  else {
-    res = rb_funcall2(str, bang_st->id, bang_st->argc, bang_st->argv);
-    RB_GC_GUARD(res);
-  }
+  res = rb_funcall2(str, bang_st->id, bang_st->argc, bang_st->argv);
+  RB_GC_GUARD(res);
 
   if (res != Qnil) {
     GET_MMAP(bang_st->obj, mmap, 0);
     mmap->real = RSTRING_LEN(str);
   }
 
+  RB_GC_GUARD(str);
   return res;
 }
 
@@ -824,9 +815,6 @@ mmap_bang_initialize(VALUE obj, int flag, ID id, int argc, VALUE *argv)
   mmap_bang bang_st;
 
   GET_MMAP(obj, mmap, 0);
-  if ((flag & MMAP_RUBY_CHANGE) && (mmap->flag & MMAP_RUBY_FIXED)) {
-    rb_raise(rb_eTypeError, "can't change the size of a fixed map");
-  }
 
   bang_st.obj = obj;
   bang_st.flag = flag;
@@ -835,7 +823,7 @@ mmap_bang_initialize(VALUE obj, int flag, ID id, int argc, VALUE *argv)
   bang_st.argv = argv;
 
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_bang_exec, (VALUE)&bang_st, mmap_vunlock, obj);
   }
   else {
@@ -945,12 +933,6 @@ num_index:
         rb_raise(rb_eIndexError, "index %ld out of string", idx);
       }
       if (FIXNUM_P(val)) {
-        if (mmap->real == (size_t)idx) {
-          mmap->real += 1;
-          if (mmap->flag & MMAP_RUBY_FIXED) {
-            rb_raise(rb_eTypeError, "can't change the size of a fixed map");
-          }
-        }
         ((char *)mmap->addr)[idx] = NUM2INT(val) & 0xff;
       }
       else {
@@ -993,7 +975,10 @@ mmap_update(mmap_t *str, long beg, long len, VALUE val)
   long vall;
 
   if (len < 0) rb_raise(rb_eIndexError, "negative length %ld", len);
-  mmap_lock(str, Qtrue);
+  valp = StringValuePtr(val);
+  vall = RSTRING_LEN(val);
+
+  mmap_lock(str, 1);
   if (beg < 0) {
     beg += str->real;
   }
@@ -1007,11 +992,6 @@ mmap_update(mmap_t *str, long beg, long len, VALUE val)
   if (str->real < (size_t)(beg + len)) {
     len = str->real - beg;
   }
-
-  mmap_unlock(str);
-  valp = StringValuePtr(val);
-  vall = RSTRING_LEN(val);
-  mmap_lock(str, Qtrue);
 
   if ((str->flag & MMAP_RUBY_FIXED) && vall != len) {
     mmap_unlock(str);
@@ -1256,7 +1236,7 @@ mmap_cat(VALUE self, const char *ptr, long len)
     if (sptr <= ptr && ptr < sptr + mmap->real) {
       poffset = ptr - sptr;
     }
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     if (mmap->flag & MMAP_RUBY_FIXED) {
       mmap_unlock(mmap);
       rb_raise(rb_eTypeError, "can't change the size of a fixed map");
@@ -1401,6 +1381,11 @@ mmap_sub_bang_int(VALUE data)
         rb_raise(rb_eTypeError, "can't change the size of a fixed map");
       }
 
+      if (RSTRING_LEN(repl) > plen) {
+        mmap_realloc(mmap, mmap->real + RSTRING_LEN(repl) - plen);
+        RSTRING(str)->as.heap.ptr = mmap->addr;
+      }
+
       memmove(RSTRING_PTR(str) + start + regs->beg[0] + RSTRING_LEN(repl),
               RSTRING_PTR(str) + start + regs->beg[0] + plen,
               RSTRING_LEN(str) - start - regs->beg[0] - plen);
@@ -1438,7 +1423,7 @@ rb_cMmap_sub_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_sub_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1506,7 +1491,8 @@ mmap_gsub_bang_int(VALUE data)
       }
 
       if ((mmap->real + RSTRING_LEN(val) - plen) > mmap->len) {
-        rb_raise(rb_eTypeError, "replacement would exceed mmap size");
+        mmap_realloc(mmap, RSTRING_LEN(str) + RSTRING_LEN(val) - plen);
+        RSTRING(str)->as.heap.ptr = mmap->addr;
       }
 
       memmove(RSTRING_PTR(str) + start + regs->beg[0] + RSTRING_LEN(val),
@@ -1556,7 +1542,7 @@ rb_cMmap_gsub_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_gsub_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1615,7 +1601,7 @@ rb_cMmap_upcase_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_upcase_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1674,7 +1660,7 @@ rb_cMmap_downcase_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_downcase_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1740,7 +1726,7 @@ rb_cMmap_capitalize_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_capitalize_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1802,7 +1788,7 @@ rb_cMmap_swapcase_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_swapcase_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1860,7 +1846,7 @@ rb_cMmap_reverse_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_reverse_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -1884,7 +1870,7 @@ rb_cMmap_strip_bang(VALUE self)
   mmap_t *mmap;
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
-  mmap_lock(mmap, Qtrue);
+  mmap_lock(mmap, 1);
   s = (char *)mmap->addr;
   e = t = s + mmap->real;
   while (s < t && ISSPACE(*s)) s++;
@@ -1962,7 +1948,7 @@ rb_cMmap_chop_bang(VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_chop_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -2060,7 +2046,7 @@ rb_cMmap_chomp_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_chomp_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -2120,7 +2106,7 @@ rb_cMmap_delete_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_delete_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -2135,56 +2121,29 @@ mmap_squeeze_bang_int(VALUE data)
 {
   mmap_bang *bang_st = (mmap_bang *)data;
   VALUE obj = bang_st->obj;
-  VALUE str;
+  VALUE str, result;
   mmap_t *mmap;
-  char *ptr;
-  long len;
-  long i, j;
-  VALUE squeeze_str;
-  char *squeeze_ptr;
-  long squeeze_len;
-  int squeeze_table[256];
-  int changed = 0;
+  long new_len;
 
   GET_MMAP(obj, mmap, MMAP_RUBY_MODIFY);
-  str = mmap_str(obj, MMAP_RUBY_MODIFY | MMAP_RUBY_ORIGIN);
 
-  ptr = RSTRING_PTR(str);
-  len = RSTRING_LEN(str);
+  str = rb_str_new(mmap->addr, mmap->real);
 
-  if (len == 0) {
-    RB_GC_GUARD(str);
+  result = rb_funcall2(str, rb_intern("squeeze!"), bang_st->argc, bang_st->argv);
+
+  if (result == Qnil) {
     return Qnil;
   }
 
-  if (bang_st->argc == 0) {
-    memset(squeeze_table, 1, sizeof(squeeze_table));
-  } else {
-    squeeze_str = rb_str_to_str(bang_st->argv[0]);
-    squeeze_ptr = RSTRING_PTR(squeeze_str);
-    squeeze_len = RSTRING_LEN(squeeze_str);
-
-    memset(squeeze_table, 0, sizeof(squeeze_table));
-    for (i = 0; i < squeeze_len; i++) {
-      squeeze_table[(unsigned char)squeeze_ptr[i]] = 1;
-    }
+  new_len = RSTRING_LEN(str);
+  if (new_len > (long)mmap->len) {
+    rb_raise(rb_eRuntimeError, "string too long for mmap");
   }
 
-  j = 0;
-  for (i = 0; i < len; i++) {
-    if (i == 0 || ptr[i] != ptr[i-1] || !squeeze_table[(unsigned char)ptr[i]]) {
-      ptr[j++] = ptr[i];
-    } else {
-      changed = 1;
-    }
-  }
+  memcpy(mmap->addr, RSTRING_PTR(str), new_len);
+  mmap->real = new_len;
 
-  if (changed) {
-    mmap->real = j;
-  }
-
-  RB_GC_GUARD(str);
-  return changed ? obj : Qnil;
+  return obj;
 }
 
 /*
@@ -2207,7 +2166,7 @@ rb_cMmap_squeeze_bang(int argc, VALUE *argv, VALUE self)
 
   GET_MMAP(self, mmap, MMAP_RUBY_MODIFY);
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     res = rb_ensure(mmap_squeeze_bang_int, (VALUE)&bang_st, mmap_vunlock, self);
   }
   else {
@@ -2349,6 +2308,7 @@ mmap_expand_initialize(VALUE data)
   if (munmap(mmap->addr, mmap->len)) {
     rb_raise(rb_eArgError, "munmap failed");
   }
+  mmap->addr = NULL;
 
   if ((fd = open(mmap->path, mmap->smode)) == -1) {
     rb_raise(rb_eArgError, "can't open %s", mmap->path);
@@ -2407,7 +2367,7 @@ mmap_expandf(mmap_t *mmap, size_t len)
   st_mm.len = len;
 
   if (mmap->flag & MMAP_RUBY_IPC) {
-    mmap_lock(mmap, Qtrue);
+    mmap_lock(mmap, 1);
     rb_protect(mmap_expand_initialize, (VALUE)&st_mm, &status);
     mmap_unlock(mmap);
     if (status) {
@@ -2539,20 +2499,19 @@ rb_cMmap_unmap(VALUE self)
   mmap_t *mmap;
 
   GET_MMAP(self, mmap, 0);
-  if (mmap->path) {
-    mmap_lock(mmap, Qtrue);
-    munmap(mmap->addr, mmap->len);
-    if (mmap->path != (char *)(intptr_t)-1) {
-      if (mmap->real < mmap->len &&
-          mmap->vscope != MAP_PRIVATE &&
-          truncate(mmap->path, mmap->real) == -1) {
-        rb_raise(rb_eTypeError, "truncate");
-      }
-      free(mmap->path);
+  mmap_lock(mmap, 1);
+  munmap(mmap->addr, mmap->len);
+  mmap->addr = NULL;
+  if (mmap->path != (char *)(intptr_t)-1) {
+    if (mmap->real < mmap->len &&
+        mmap->vscope != MAP_PRIVATE &&
+        truncate(mmap->path, mmap->real) == -1) {
+      rb_raise(rb_eTypeError, "truncate");
     }
-    mmap->path = NULL;
-    mmap_unlock(mmap);
+    free(mmap->path);
   }
+  mmap->path = NULL;
+  mmap_unlock(mmap);
   return Qnil;
 }
 
@@ -2567,7 +2526,7 @@ rb_cMmap_semlock(int argc, VALUE *argv, VALUE self)
 {
   mmap_t *mmap;
   VALUE a;
-  int wait_lock = Qtrue;
+  int wait_lock = 1;
 
   GET_MMAP(self, mmap, 0);
   if (!(mmap->flag & MMAP_RUBY_IPC)) {
