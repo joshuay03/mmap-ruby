@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.1.3] - 2026-05-09
+
 - Fix `sub!` and `gsub!` to expand the backing file when the replacement grows the string
 - Improve test coverage and fix incorrect test assertions
 - Fix `squeeze!` to support Ruby string range notation by delegating to `String#squeeze!`
